@@ -1,11 +1,18 @@
 {
   "name": "weapp-starter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "WeApp starter for WePY, es6/7, sass...",
   "main": "dist/app.js",
   "scripts": {
     "dev": "wepy build --watch",
-    "build": "cross-env NODE_ENV=production wepy build --no-cache"
+    "build": "cross-env NODE_ENV=production wepy build --no-cache",
+    "dev:web": "wepy build --output web",
+    "clean": "find ./dist -maxdepth 1 -not -name 'project.config.json' -not -name 'dist' | xargs rm -rf",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "wepy": {
+    "module-a": false,
+    "./src/components/list": "./src/components/wepy-list.wpy"
   },
   "repository": {
     "type": "git",
@@ -23,9 +30,13 @@
   },
   "homepage": "https://github.com/cycjimmy/weapp-starter#readme",
   "dependencies": {
-    "wepy": "^1.6.0",
-    "wepy-async-function": "^1.4.4",
-    "wepy-com-toast": "^1.0.2"
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-promise": "^0.5.3",
+    "wepy": "^1.7.0",
+    "wepy-async-function": "^1.4.5",
+    "wepy-com-toast": "^1.0.2",
+    "wepy-redux": "^1.5.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
@@ -41,8 +52,11 @@
     "eslint-plugin-html": "^2.0.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.0.1",
+    "wepy-cli": "^1.7.0",
     "wepy-compiler-babel": "^1.5.1",
-    "wepy-compiler-sass": "^1.3.7",
-    "wepy-eslint": "^1.5.3"
+    "wepy-compiler-sass": "^1.3.8",
+    "wepy-eslint": "^1.5.4",
+    "wepy-plugin-imagemin": "^1.5.3",
+    "wepy-plugin-uglifyjs": "^1.3.7"
   }
 }

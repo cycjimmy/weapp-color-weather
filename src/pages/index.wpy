@@ -30,6 +30,9 @@
       <text class="info">{{mixin}}</text>
       <text class="info">{{mynum}}</text>
       <text class="info">{{now}}</text>
+      <text class="info">{{num}}</text>
+      <text class="info">{{asyncNum}}</text>
+      <text class="info">{{sumNum}}</text>
       <button @tap="plus('a')" size="mini">  +  </button>
     </panel>
 
@@ -63,7 +66,7 @@
 
     <panel>
       <view class="title" slot="title">测试组件Repeat</view>
-      <repeat for="{{groupList}}" index="index" item="item" key="key">
+      <repeat for="" index="index" item="item" key="key">
         <group :grouplist="item" :indexa="index"></group>
       </repeat>
     </panel>
@@ -79,12 +82,28 @@
 
 <script>
   import wepy from 'wepy'
-  import List from '../components/list'
+  import { connect } from 'wepy-redux'
   import Panel from '@/components/panel' // alias example
   import Counter from 'counter' // alias example
+  import List from '../components/list' // aliasFields example
+  import moduleA from 'module-a' // aliasFields ignore module example
   import Group from '../components/group'
   import Toast from 'wepy-com-toast'
   import testMixin from '../mixins/test'
+
+  console.log('moduleA ignored: ', moduleA) // => moduleA ignored: {}
+
+  @connect({
+    num (state) {
+      return state.counter.num
+    },
+    asyncNum (state) {
+      return state.counter.asyncNum
+    },
+    sumNum (state) {
+      return state.counter.num + state.counter.asyncNum
+    }
+  })
 
   export default class Index extends wepy.page {
     config = {
