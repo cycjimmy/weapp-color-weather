@@ -1,0 +1,48 @@
+<style lang="scss" src="index.scss"></style>
+<template lang="wxml" src="index.wxml"></template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'Weather'
+    };
+
+    data = {
+      userInfo: {
+        nickName: '加载中...',
+        avatarUrl: ''
+      }
+    };
+
+    methods = {};
+
+    onLoad() {
+      let self = this
+      this.$parent.getUserInfo(function (userInfo) {
+        if (userInfo) {
+          self.userInfo = userInfo
+        }
+
+        self.$apply()
+      })
+
+      // wepy.getLocation
+      // wepy.getLocation({
+      //   type: 'gcj02',
+      //   success: function(res) {
+      //     console.log(res)
+      //     // callback(true, res.latitude, res.longitude);
+      //
+      //   },
+      //   fail: function() {
+      //     console.log('getLocation fail')
+      //     // callback(false);
+      //
+      //   }
+      //
+      // })
+    }
+  };
+</script>
