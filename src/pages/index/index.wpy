@@ -3,6 +3,10 @@
 
 <script>
   import wepy from 'wepy'
+  import {
+    getLocation,
+    getWeather
+  } from '../../shared/commonFuncs'
 
   export default class Index extends wepy.page {
     config = {
@@ -10,39 +14,49 @@
     };
 
     data = {
-      userInfo: {
-        nickName: '加载中...',
-        avatarUrl: ''
+      // https://www.heweather.com/documents/api/s6/weather-now
+      weather: {
+        tmp_unit: '℃',
+        fl: '',
+        tmp: '',
+        cond_txt: '',
+        cond_icon_src: '',
+        wind_dir: '',
+        wind_sc: '',
+        hum: '0',
+        pcpn: '',
+        pres: '',
+        vis: '',
+        update: '',
+        location: ''
       }
     };
 
     methods = {};
 
     onLoad() {
-      let self = this
-      this.$parent.getUserInfo(function (userInfo) {
-        if (userInfo) {
-          self.userInfo = userInfo
-        }
-
-        self.$apply()
-      })
-
       // wepy.getLocation
-      // wepy.getLocation({
-      //   type: 'gcj02',
-      //   success: function(res) {
-      //     console.log(res)
-      //     // callback(true, res.latitude, res.longitude);
-      //
-      //   },
-      //   fail: function() {
-      //     console.log('getLocation fail')
-      //     // callback(false);
-      //
-      //   }
-      //
-      // })
+      getLocation()
+        .then((res) => getWeather(res.latitude, res.longitude))
+        .then((weatherData) => {
+          console.log(weatherData)
+          let now = weatherData.now
+
+          this.data.weather.location = weatherData.basic.location
+          this.data.weather.fl = now.fl
+          this.data.weather.tmp = now.tmp
+          this.data.weather.cond_txt = now.cond_txt
+          this.data.weather.cond_icon_src = 'https://www.heweather.com/files/images/cond_icon/' + now.cond_code + '.png'
+          this.data.weather.wind_dir = now.wind_dir
+          this.data.weather.wind_sc = now.wind_sc
+          this.data.weather.hum = now.hum
+          this.data.weather.pcpn = now.pcpn
+          this.data.weather.pres = now.pres
+          this.data.weather.vis = now.vis
+          this.data.weather.update = weatherData.update.loc
+
+          this.$apply()
+        })
     }
   };
 </script>

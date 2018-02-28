@@ -1,15 +1,52 @@
-.userinfo {
+@import '../../theme/variables';
+
+$tmpNumH: 100rpx;
+
+.weather-tmp-block {
+  width: 350rpx;
+  height: $tmpNumH;
+  margin: $space;
+  align-self: flex-start;
+
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: $space;
+
+  border-bottom: 1rpx solid $fontColorLight;
 }
 
-.userinfo-avatar {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 50%;
+.weather-tmp-num {
+  height: $tmpNumH;
+  font-weight: 500;
+  font-size: $tmpNumH;
+  line-height: $tmpNumH;
+}
+.weather-tmp-unit {
+  font-weight: 500;
+  line-height: $fontM;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+
+.weather-cond-icon {
+  width: 150rpx;
+  height: 150rpx;
 }
+
+.weather-cond-txt,
+.weather-location-txt {
+  font-size: $fontS;
+  font-weight: 700;
+  color: $fontColorLight;
+}
+
+
+.weather-tmp-num {
+  height: 100rpx;
+  font-weight: 500;
+  font-size: 100rpx;
+}
+
+
+
+
+
