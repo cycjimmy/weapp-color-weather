@@ -1,52 +1,240 @@
 @import '../../theme/variables';
+@import '../../theme/utilities';
 
-$tmpNumH: 100rpx;
+.homeContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
-.weather-tmp-block {
-  width: 350rpx;
-  height: $tmpNumH;
-  margin: $space;
+  overflow: hidden;
+}
+
+// common
+.kazariLine {
+  height: 1rpx;
+  width: 290rpx;
+  margin: 30rpx $space;
+  background-color: $fontColorLight;
   align-self: flex-start;
+}
+
+.emptyHeight {
+  height: 10%;
+}
+
+.bgCircle {
+  $bgCircleH: 400rpx;
+
+  @extend %abs;
+  z-index: 0;
+  top: 24%;
+  right: -200rpx;
+  width: $bgCircleH;
+  height: $bgCircleH;
+
+  border-radius: 50%;
+  background-color: #EFD13F;
+}
+
+.moreBtn {
+  @extend %abs;
+  right: 0;
+  top: 0;
+  @extend %flex-center;
+
+  width: 112rpx;
+  height: 112rpx;
+
+  background-color: $fontColor;
+  border-radius: 0 0 0 30rpx;
+
+  > image {
+    display: block;
+    width: 45rpx;
+    height: 45rpx;
+  }
+}
+
+.moreBtnHover {
+  background-color: $fontColorLight;
+}
+
+.currentCityWrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin: $space;
+  width: 500rpx;
+  height: 98rpx;
+
+  text {
+    display: block;
+    height: 90rpx;
+    line-height: 90rpx;
+    font-size: 50rpx;
+    font-weight: 700;
+  }
+}
+
+.currentCityKazari {
+  @extend %rel;
+  height: 8rpx;
+
+  .thick {
+    @extend %rel;
+    left: 0;
+    top: 0;
+    height: 8rpx;
+    width: 40rpx;
+
+    border-radius: 4rpx;
+    background-color: $fontColor;
+  }
+
+  .line {
+    @extend %rel;
+    left: 0;
+    top: 4rpx;
+    height: 1rpx;
+    width: 100%;
+
+    background-color: $fontColorLight;
+  }
+}
+
+.maxMinTemperature {
+  $maxMinTemperatureSize: 30rpx;
+
+  align-self: flex-start;
+  height: $maxMinTemperatureSize;
+  margin-left: $space;
+
+  line-height: $maxMinTemperatureSize;
+  font-size: $maxMinTemperatureSize;
+  font-weight: 400;
+}
+
+$temperatureNumSize: 160rpx;
+.temperatureWrapper {
+  height: $temperatureNumSize;
+  width: 710rpx;
+  margin-left: $space;
+  display: flex;
+}
+
+.temperatureNum {
+  height: 100%;
+
+  line-height: $temperatureNumSize;
+  font-size: $temperatureNumSize;
+}
+
+.temperatureRight {
+  flex: 1;
+  height: 100%;
 
   display: flex;
-  justify-content: flex-start;
-  padding-bottom: $space;
-
-  border-bottom: 1rpx solid $fontColorLight;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.weather-tmp-num {
-  height: $tmpNumH;
-  font-weight: 500;
-  font-size: $tmpNumH;
-  line-height: $tmpNumH;
-}
-.weather-tmp-unit {
-  font-weight: 500;
-  line-height: $fontM;
-}
+.temperatureUnit {
+  $temperatureUnitSize: 64rpx;
+  height: $temperatureUnitSize;
+  line-height: $temperatureUnitSize;
+  font-size: $temperatureUnitSize;
 
-
-.weather-cond-icon {
-  width: 150rpx;
-  height: 150rpx;
-}
-
-.weather-cond-txt,
-.weather-location-txt {
-  font-size: $fontS;
   font-weight: 700;
-  color: $fontColorLight;
 }
 
+.showDay {
+  $showDaySize: 35rpx;
+  height: $showDaySize;
+  line-height: $showDaySize;
+  font-size: $showDaySize;
 
-.weather-tmp-num {
-  height: 100rpx;
-  font-weight: 500;
-  font-size: 100rpx;
+  font-weight: 700;
 }
 
+.pm25Wrapper {
+  $pm25H: 60rpx;
 
+  height: $pm25H;
+  margin-left: $space;
+  width: 710rpx;
+  display: flex;
 
+  > image {
+    display: block;
+    height: $pm25H;
+    width: $pm25H;
+    margin-right: 20rpx;
+  }
+
+  > text {
+    display: block;
+    flex: 1;
+    height: $pm25H;
+
+    line-height: $pm25H;
+    font-size: $fontS;
+  }
+}
+
+.weatherDescWrapper {
+  margin-left: $space;
+  align-self: flex-start;
+
+  > text {
+    display: block;
+    height: $fontS;
+    margin: 10rpx 0;
+
+    line-height: $fontS;
+    font-size: $fontS;
+  }
+}
+
+.weatherPicWrapper {
+  $weatherPicH: 40rpx;
+  height: $weatherPicH;
+  display: flex;
+  margin: 10rpx 0 20rpx;
+
+  > image {
+    display: block;
+    height: $weatherPicH;
+    width: 56rpx;
+
+    margin-right: 10rpx;
+  }
+}
+
+.forecastWrapper {
+  margin: 0 $space 60rpx;
+  width: 670rpx;
+  height: 130rpx;
+  display: flex;
+  align-items: flex-end;
+
+  > .line {
+    width: 1rpx;
+    height: 100rpx;
+    margin: 0 10rpx;
+
+    background-color: $fontColorLight;
+  }
+
+  > .itemWrapper {
+    flex: 1;
+    height: 100%;
+    width: 0;
+    background-color: aquamarine;
+  }
+}
 
 

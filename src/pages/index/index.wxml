@@ -1,23 +1,64 @@
-<view class="container">
-  <view class="weather-tmp-block">
-    <view class="weather-tmp-num">{{ weather.tmp }}</view>
-    <view class="weather-tmp-unit">{{ weather.tmp_unit }}</view>
+<view class="homeContainer">
+  <!--bgCircle-->
+  <view class="bgCircle"></view>
+
+  <!--moreBtn-->
+  <button @tap="more" class="moreBtn" hover-class="moreBtnHover">
+    <image src="../../static/images/icon-more.svg" mode="aspectFit"></image>
+  </button>
+
+  <!--currentCity-->
+  <view class="currentCityWrapper">
+    <text>{{ current.currentCity }}</text>
+    <view class="currentCityKazari">
+      <view class="line"></view>
+      <view class="thick"></view>
+    </view>
   </view>
 
-  <view class="weather-cond-txt">{{ weather.cond_txt }}</view>
-  <image class="weather-cond-icon" src="{{ weather.cond_icon_src }}" background-size="cover"/>
+  <!--maxMinTemperature-->
+  <view class="maxMinTemperature">最高 {{ current.maxTemperature }} | 最低 {{ current.minTemperature }}</view>
 
+  <!--temperatureWrapper-->
+  <view class="temperatureWrapper">
+    <view class="temperatureNum">{{ current.currentTemperature }}</view>
+    <view class="temperatureRight">
+      <view class="temperatureUnit">℃</view>
+      <view class="showDay">{{ current.day }}</view>
+    </view>
+  </view>
 
+  <view class="kazariLine"></view>
 
-  <view class="weather-location-txt">{{ weather.location }}</view>
-  <view>体感({{ weather.tmp_unit }})：{{ weather.fl }}</view>
+  <!--pm25Wrapper-->
+  <view class="pm25Wrapper">
+    <image src="../../static/images/icon-pm25.svg" mode="aspectFit"></image>
+    <text>{{ current.pm25 }}</text>
+  </view>
 
+  <view class="kazariLine"></view>
 
-  <view>风向：{{ weather.wind_dir }}</view>
-  <view>风力：{{ weather.wind_sc }}</view>
-  <view>湿度：{{ weather.hum }}</view>
-  <view>降水量：{{ weather.pcpn }}</view>
-  <view>压强：{{ weather.pres }}</view>
-  <view>能见度(km)：{{ weather.vis }}</view>
-  <view>最后更新：{{ weather.update }}</view>
+  <!--weatherDescWrapper-->
+  <view class="weatherDescWrapper">
+    <view class="weatherPicWrapper">
+      <image src="{{ current.dayPictureUrl }}" mode="aspectFit"></image>
+      <image src="{{ current.nightPictureUrl }}" mode="aspectFit"></image>
+    </view>
+
+    <text>{{ current.weatherDesc }}</text>
+    <text>{{ current.wind }}</text>
+  </view>
+
+  <view class="kazariLine"></view>
+
+  <view class="emptyHeight"></view>
+
+  <!--forecastWrapper-->
+  <view class="forecastWrapper">
+    <view class="itemWrapper"></view>
+    <view class="line"></view>
+    <view class="itemWrapper"></view>
+    <view class="line"></view>
+    <view class="itemWrapper"></view>
+  </view>
 </view>

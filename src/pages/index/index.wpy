@@ -2,11 +2,10 @@
 <template lang="wxml" src="index.wxml"></template>
 
 <script>
-  import wepy from 'wepy'
+  import wepy from 'wepy';
   import {
-    getLocation,
     getWeather
-  } from '../../shared/commonFuncs'
+  } from '../../shared/commonFuncs';
 
   export default class Index extends wepy.page {
     config = {
@@ -14,49 +13,27 @@
     };
 
     data = {
-      // https://www.heweather.com/documents/api/s6/weather-now
-      weather: {
-        tmp_unit: '℃',
-        fl: '',
-        tmp: '',
-        cond_txt: '',
-        cond_icon_src: '',
-        wind_dir: '',
-        wind_sc: '',
-        hum: '0',
-        pcpn: '',
-        pres: '',
-        vis: '',
-        update: '',
-        location: ''
+      current: {},
+      forecast: [],
+      suggestion: {}
+    };
+
+    methods = {
+      more() {
+        console.log('tap moreBtn!');
       }
     };
 
-    methods = {};
-
     onLoad() {
-      // wepy.getLocation
-      getLocation()
-        .then((res) => getWeather(res.latitude, res.longitude))
+      getWeather()
         .then((weatherData) => {
-          console.log(weatherData)
-          let now = weatherData.now
+          console.log(weatherData);
+          this.current = weatherData.current;
+          this.forecast = weatherData.forecast;
+          this.suggestion = weatherData.suggestion;
 
-          this.data.weather.location = weatherData.basic.location
-          this.data.weather.fl = now.fl
-          this.data.weather.tmp = now.tmp
-          this.data.weather.cond_txt = now.cond_txt
-          this.data.weather.cond_icon_src = 'https://www.heweather.com/files/images/cond_icon/' + now.cond_code + '.png'
-          this.data.weather.wind_dir = now.wind_dir
-          this.data.weather.wind_sc = now.wind_sc
-          this.data.weather.hum = now.hum
-          this.data.weather.pcpn = now.pcpn
-          this.data.weather.pres = now.pres
-          this.data.weather.vis = now.vis
-          this.data.weather.update = weatherData.update.loc
-
-          this.$apply()
-        })
+          this.$apply();
+        });
     }
   };
 </script>

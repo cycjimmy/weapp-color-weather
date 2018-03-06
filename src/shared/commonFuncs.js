@@ -1,38 +1,64 @@
-import wepy from 'wepy'
+import bmap from '../libs/bmap-wx';
 
-const apiKey = 'adeef881d44a4d28a768275bbc28c2dd'
+const apiKey = 'vS58Ifa5GreEZzVLCLyzFQZK5GXDokqp';
 
-export let getLocation = () => new Promise(resolve => {
-  // 默认经纬度
-  let result = {
-    error: 'error',
-    latitude: 39.90,
-    longitude: 116.399
-  }
-
-  wx.getLocation({
-    success: res => {
-      result.error = 'ok'
-      result.latitude = res.latitude
-      result.longitude = res.longitude
-
-      resolve(result)
-    },
-    fail: () => resolve(result)
-  })
-})
-
-export let getWeather = (latitude, longitude) => {
-  let apiURL = 'https://free-api.heweather.com/s6/weather/now?location=' + longitude + ',' + latitude + '&key=' + apiKey
-
-  return new Promise((resolve) => {
-    wepy.request({
-      url: apiURL,
-      header: {
-        'content-type': 'application/json'
-      },
-      success: (weatherData) => resolve(weatherData.data.HeWeather6[0]),
-      fail: () => resolve()
+export let getWeather = () => {
+  let
+    BMap = new bmap.BMapWX({
+      ak: apiKey
     })
+    // default resolve data
+    , result = {
+      current: {},
+      forecast: [],
+      suggestion: {}
+    }
+  ;
+
+  return new Promise((resolve, reject) => {
+    let fail = (data) => {
+      console.log(data);
+      reject(data);
+    };
+    let success = (data) => {
+      let originalData = data.originalData.results[0];
+      let currentWeather = originalData.weather_data[0];
+      let suggestion = originalData.index;
+
+      // current
+      result.current.currentCity = originalData.currentCity;
+      result.current.currentTemperature = currentWeather.date.replace(/^.+实时：|℃.+$/g, '');
+      result.current.maxTemperature = currentWeather.temperature.replace(/\s.+$/g, '');
+      result.current.minTemperature = currentWeather.temperature.replace(/^.+\s|℃$/g, '');
+      result.current.day = currentWeather.date.replace(/\s.+$/g, '');
+      result.current.pm25 = originalData.pm25;
+      result.current.dayPictureUrl = currentWeather.dayPictureUrl;
+      result.current.nightPictureUrl = currentWeather.nightPictureUrl;
+      result.current.weatherDesc = currentWeather.weather;
+      result.current.wind = currentWeather.wind;
+
+      // forecast
+      result.forecast = [
+        originalData.weather_data[1],
+        originalData.weather_data[2],
+        originalData.weather_data[3]
+      ];
+
+      // suggestion
+      result.suggestion.dress = suggestion[0];
+      result.suggestion.uv = suggestion[4];
+      result.suggestion.cold = suggestion[2];
+      result.suggestion.sport = suggestion[3];
+      result.suggestion.carWash = suggestion[1];
+      console.log(data);
+      resolve(result);
+    };
+
+    BMap.weather({
+      fail: fail,
+      success: success
+    });
   })
-}
+
+
+};
