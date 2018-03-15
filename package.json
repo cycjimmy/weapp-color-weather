@@ -1,7 +1,7 @@
 {
   "name": "weapp-color-weather",
-  "version": "0.0.3",
-  "description": "WeApp starter for WePY, es6/7, sass...",
+  "version": "0.0.4",
+  "description": "weapp-color-weather",
   "main": "dist/app.js",
   "scripts": {
     "dev": "wepy build --watch",
@@ -11,24 +11,22 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "wepy": {
-    "module-a": false,
-    "./src/components/list": "./src/components/wepy-list.wpy"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cycjimmy/weapp-starter.git"
+    "url": "git+https://github.com/cycjimmy/weapp-color-weather.git"
   },
   "keywords": [
     "weapp",
     "WePY",
-    "sass"
+    "weather"
   ],
   "author": "cycjimmy <cycjimmy@gmail.com> (https://github.com/cycjimmy)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cycjimmy/weapp-starter/issues"
+    "url": "https://github.com/cycjimmy/weapp-color-weather/issues"
   },
-  "homepage": "https://github.com/cycjimmy/weapp-starter#readme",
+  "homepage": "https://github.com/cycjimmy/weapp-color-weather#readme",
   "dependencies": {
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",

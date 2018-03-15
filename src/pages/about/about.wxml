@@ -1,2 +1,18 @@
-<view>关于页面</view>
-<view>由wept开发而成，源代码已开源在github中，欢迎提出各种issues，以便完善功能，共同进步，谢谢！</view>
+<view class="fullContainer aboutWrapper">
+  <image class="logo" src="../../static/images/logo_cyc.png" mode="aspectFit"></image>
+  <view class="textWrapper">
+    <view>色彩天气小程序基于WePY开发而成</view>
+    <view>目的旨在学习交流小程序开发心得</view>
+
+    <view class="line"></view>
+
+    <view>目源代码目前已开源(MIT协议)</view>
+    <view>github: cycjimmy/weapp-color-weather</view>
+
+    <view class="line"></view>
+
+    <view>本小程序功能简单，代码简陋</view>
+    <view>欢迎提出各种宝贵issues，以便完善功能共同进步</view>
+    <view>不胜感谢！</view>
+  </view>
+</view>

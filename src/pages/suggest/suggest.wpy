@@ -6,7 +6,7 @@
 
   export default class extends wepy.page {
     config = {
-      navigationBarTitleText: '天气小贴士'
+      navigationBarTitleText: '色彩天气小贴士'
     };
 
     data = {

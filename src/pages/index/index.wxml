@@ -1,4 +1,4 @@
-<view class="homeContainer">
+<view class="fullContainer">
   <!--bgCircle-->
   <view class="bgCircle" hover-class="bgCircleHover"></view>
 

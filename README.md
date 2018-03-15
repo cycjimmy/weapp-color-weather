@@ -1,4 +1,4 @@
-# weapp-starter
+# Weapp Color Weather
 
 [![David deps][david-image]][david-url]
 [![devDependencies Status][david-dev-image]][david-dev-url]
@@ -15,3 +15,4 @@
 * WebStorm
   * `Settings` -> `Plugins` -> search `Vue.js` -> install
   * `Settings` -> `Editor` -> `File Types` -> `Vue.js Template` -> Add `*.wpy` in `Registered Patterns`
+

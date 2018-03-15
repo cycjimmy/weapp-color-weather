@@ -1,5 +1,29 @@
 @import '../../theme/variables';
 @import '../../theme/utilities';
 
+.aboutWrapper {
+  align-items: center;
+  justify-content: center;
 
+  > .logo {
+    width: rpx(150);
+    height: rpx(150);
+    margin-bottom: rpx(60);
+  }
+
+  .textWrapper {
+    margin: 0 rpx(30);
+    @extend %flex-center;
+    flex-direction: column;
+
+    font-size: $fontS;
+  }
+
+  .line {
+    height: rpx(1);
+    width: rpx(250);
+    margin: rpx(30) 0;
+    background-color: $fontColorLight;
+  }
+}
 
