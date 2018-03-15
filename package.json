@@ -1,6 +1,6 @@
 {
-  "name": "weapp-starter",
-  "version": "0.0.2",
+  "name": "weapp-color-weather",
+  "version": "0.0.3",
   "description": "WeApp starter for WePY, es6/7, sass...",
   "main": "dist/app.js",
   "scripts": {

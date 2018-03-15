@@ -45,6 +45,7 @@ export let getWeather = () => {
       ];
 
       // suggestion
+      result.suggestionDate = originalData.weather_data[0].date;
       result.suggestion.dress = suggestion[0];
       result.suggestion.uv = suggestion[4];
       result.suggestion.cold = suggestion[2];

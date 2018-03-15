@@ -1,11 +1,6 @@
 <view class="homeContainer">
   <!--bgCircle-->
-  <view class="bgCircle"></view>
-
-  <!--moreBtn-->
-  <button @tap="more" class="moreBtn" hover-class="moreBtnHover">
-    <image src="../../static/images/icon-more.svg" mode="aspectFit"></image>
-  </button>
+  <view class="bgCircle" hover-class="bgCircleHover"></view>
 
   <!--currentCity-->
   <view class="currentCityWrapper">
@@ -55,10 +50,35 @@
 
   <!--forecastWrapper-->
   <view class="forecastWrapper">
-    <view class="itemWrapper"></view>
+    <view class="itemWrapper">
+      <text class="itemDate">{{ forecast[0].date }}</text>
+      <view class="itemPicWrapper">
+        <image src="{{ forecast[0].dayPictureUrl }}" mode="aspectFit"></image>
+        <image src="{{ forecast[0].nightPictureUrl }}" mode="aspectFit"></image>
+      </view>
+      <text class="itemTemperature">{{ forecast[0].temperature }}</text>
+    </view>
+
     <view class="line"></view>
-    <view class="itemWrapper"></view>
+
+    <view class="itemWrapper">
+      <text class="itemDate">{{ forecast[1].date }}</text>
+      <view class="itemPicWrapper">
+        <image src="{{ forecast[1].dayPictureUrl }}" mode="aspectFit"></image>
+        <image src="{{ forecast[1].nightPictureUrl }}" mode="aspectFit"></image>
+      </view>
+      <text class="itemTemperature">{{ forecast[1].temperature }}</text>
+    </view>
+
     <view class="line"></view>
-    <view class="itemWrapper"></view>
+
+    <view class="itemWrapper">
+      <text class="itemDate">{{ forecast[2].date }}</text>
+      <view class="itemPicWrapper">
+        <image src="{{ forecast[2].dayPictureUrl }}" mode="aspectFit"></image>
+        <image src="{{ forecast[2].nightPictureUrl }}" mode="aspectFit"></image>
+      </view>
+      <text class="itemTemperature">{{ forecast[2].temperature }}</text>
+    </view>
   </view>
 </view>

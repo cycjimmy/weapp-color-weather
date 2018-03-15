@@ -3,35 +3,25 @@
 
 <script>
   import wepy from 'wepy';
-  import {
-    getWeather
-  } from '../../shared/commonFuncs';
 
-  export default class Index extends wepy.page {
+  export default class extends wepy.page {
     config = {
-      navigationBarTitleText: 'Weather'
+      navigationBarTitleText: '色彩天气'
     };
 
     data = {
       current: {},
-      forecast: [],
-      suggestion: {}
+      forecast: []
     };
 
     methods = {
-      more() {
-        console.log('tap moreBtn!');
-      }
     };
 
     onLoad() {
-      getWeather()
-        .then((weatherData) => {
-          console.log(weatherData);
-          this.current = weatherData.current;
-          this.forecast = weatherData.forecast;
-          this.suggestion = weatherData.suggestion;
-
+      this.$parent.setGlobalWeather()
+        .then(() => {
+          this.current = this.$parent.globalData.current;
+          this.forecast = this.$parent.globalData.forecast;
           this.$apply();
         });
     }

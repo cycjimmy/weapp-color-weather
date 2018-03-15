@@ -1,0 +1,21 @@
+<style lang="scss" src="about.scss"></style>
+<template lang="wxml" src="about.wxml"></template>
+
+<script>
+  import wepy from 'wepy';
+
+  export default class extends wepy.page {
+    config = {
+      navigationBarTitleText: '关于色彩天气'
+    };
+
+    data = {
+    };
+
+    methods = {
+    };
+
+    onLoad() {
+    }
+  };
+</script>

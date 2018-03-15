@@ -1,0 +1,16 @@
+<view>{{ suggestionDate }}</view>
+
+<view>{{ suggestion.dress.tipt }}: {{ suggestion.dress.zs }}</view>
+<view>{{ suggestion.dress.des }}</view>
+
+<view>{{ suggestion.uv.tipt }}: {{ suggestion.uv.zs }}</view>
+<view>{{ suggestion.uv.des }}</view>
+
+<view>{{ suggestion.cold.tipt }}: {{ suggestion.cold.zs }}</view>
+<view>{{ suggestion.cold.des }}</view>
+
+<view>{{ suggestion.sport.tipt }}: {{ suggestion.sport.zs }}</view>
+<view>{{ suggestion.sport.des }}</view>
+
+<view>{{ suggestion.carWash.tipt }}: {{ suggestion.carWash.zs }}</view>
+<view>{{ suggestion.carWash.des }}</view>

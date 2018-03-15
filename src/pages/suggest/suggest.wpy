@@ -1,0 +1,29 @@
+<style lang="scss" src="suggest.scss"></style>
+<template lang="wxml" src="suggest.wxml"></template>
+
+<script>
+  import wepy from 'wepy';
+
+  export default class extends wepy.page {
+    config = {
+      navigationBarTitleText: '天气小贴士'
+    };
+
+    data = {
+      suggestion: {},
+      suggestionDate: ''
+    };
+
+    methods = {
+    };
+
+    onLoad() {
+      this.$parent.setGlobalWeather()
+        .then(() => {
+          this.suggestion = this.$parent.globalData.suggestion;
+          this.suggestionDate = this.$parent.globalData.suggestionDate;
+          this.$apply();
+        });
+    };
+  };
+</script>

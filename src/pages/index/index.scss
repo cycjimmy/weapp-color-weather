@@ -15,9 +15,9 @@
 
 // common
 .kazariLine {
-  height: 1rpx;
-  width: 290rpx;
-  margin: 30rpx $space;
+  height: rpx(1);
+  width: rpx(290);
+  margin: rpx(30) $space;
   background-color: $fontColorLight;
   align-self: flex-start;
 }
@@ -27,12 +27,12 @@
 }
 
 .bgCircle {
-  $bgCircleH: 400rpx;
+  $bgCircleH: rpx(400);
 
   @extend %abs;
   z-index: 0;
   top: 24%;
-  right: -200rpx;
+  right: rpx(-200);
   width: $bgCircleH;
   height: $bgCircleH;
 
@@ -40,27 +40,8 @@
   background-color: #EFD13F;
 }
 
-.moreBtn {
-  @extend %abs;
-  right: 0;
-  top: 0;
-  @extend %flex-center;
-
-  width: 112rpx;
-  height: 112rpx;
-
-  background-color: $fontColor;
-  border-radius: 0 0 0 30rpx;
-
-  > image {
-    display: block;
-    width: 45rpx;
-    height: 45rpx;
-  }
-}
-
-.moreBtnHover {
-  background-color: $fontColorLight;
+.bgCircleHover {
+  opacity: .9;
 }
 
 .currentCityWrapper {
@@ -68,38 +49,38 @@
   flex-direction: column;
   align-self: flex-start;
   margin: $space;
-  width: 500rpx;
-  height: 98rpx;
+  width: rpx(500);
+  height: rpx(98);
 
   text {
     display: block;
-    height: 90rpx;
-    line-height: 90rpx;
-    font-size: 50rpx;
+    height: rpx(90);
+    line-height: rpx(90);
+    font-size: rpx(50);
     font-weight: 700;
   }
 }
 
 .currentCityKazari {
   @extend %rel;
-  height: 8rpx;
+  height: rpx(8);
 
   .thick {
     @extend %rel;
     left: 0;
     top: 0;
-    height: 8rpx;
-    width: 40rpx;
+    height: rpx(8);
+    width: rpx(40);
 
-    border-radius: 4rpx;
+    border-radius: rpx(4);
     background-color: $fontColor;
   }
 
   .line {
     @extend %rel;
     left: 0;
-    top: 4rpx;
-    height: 1rpx;
+    top: rpx(4);
+    height: rpx(1);
     width: 100%;
 
     background-color: $fontColorLight;
@@ -107,7 +88,7 @@
 }
 
 .maxMinTemperature {
-  $maxMinTemperatureSize: 30rpx;
+  $maxMinTemperatureSize: rpx(30);
 
   align-self: flex-start;
   height: $maxMinTemperatureSize;
@@ -121,7 +102,7 @@
 $temperatureNumSize: 160rpx;
 .temperatureWrapper {
   height: $temperatureNumSize;
-  width: 710rpx;
+  width: rpx(710);
   margin-left: $space;
   display: flex;
 }
@@ -143,7 +124,7 @@ $temperatureNumSize: 160rpx;
 }
 
 .temperatureUnit {
-  $temperatureUnitSize: 64rpx;
+  $temperatureUnitSize: rpx(64);
   height: $temperatureUnitSize;
   line-height: $temperatureUnitSize;
   font-size: $temperatureUnitSize;
@@ -152,7 +133,7 @@ $temperatureNumSize: 160rpx;
 }
 
 .showDay {
-  $showDaySize: 35rpx;
+  $showDaySize: rpx(35);
   height: $showDaySize;
   line-height: $showDaySize;
   font-size: $showDaySize;
@@ -161,18 +142,18 @@ $temperatureNumSize: 160rpx;
 }
 
 .pm25Wrapper {
-  $pm25H: 60rpx;
+  $pm25H: rpx(60);
 
   height: $pm25H;
   margin-left: $space;
-  width: 710rpx;
+  width: rpx(710);
   display: flex;
 
   > image {
     display: block;
     height: $pm25H;
     width: $pm25H;
-    margin-right: 20rpx;
+    margin-right: rpx(20);
   }
 
   > text {
@@ -192,7 +173,7 @@ $temperatureNumSize: 160rpx;
   > text {
     display: block;
     height: $fontS;
-    margin: 10rpx 0;
+    margin: rpx(10) 0;
 
     line-height: $fontS;
     font-size: $fontS;
@@ -200,31 +181,33 @@ $temperatureNumSize: 160rpx;
 }
 
 .weatherPicWrapper {
-  $weatherPicH: 40rpx;
+  $weatherPicH: rpx(40);
   height: $weatherPicH;
   display: flex;
-  margin: 10rpx 0 20rpx;
+  margin: rpx(10) 0 rpx(20);
 
   > image {
     display: block;
     height: $weatherPicH;
-    width: 56rpx;
+    width: rpx(56);
 
-    margin-right: 10rpx;
+    margin-right: rpx(10);
   }
 }
 
 .forecastWrapper {
-  margin: 0 $space 60rpx;
-  width: 670rpx;
-  height: 130rpx;
+  margin: 0 $space rpx(60);
+  width: rpx(670);
+  height: rpx(130);
   display: flex;
   align-items: flex-end;
 
+  font-size: $fontS;
+
   > .line {
-    width: 1rpx;
-    height: 100rpx;
-    margin: 0 10rpx;
+    width: rpx(1);
+    height: rpx(100);
+    margin: 0 rpx(10);
 
     background-color: $fontColorLight;
   }
@@ -233,7 +216,38 @@ $temperatureNumSize: 160rpx;
     flex: 1;
     height: 100%;
     width: 0;
-    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+  }
+
+  %itemText {
+    width: 100%;
+    height: rpx(36);
+    @extend %flex-center;
+  }
+
+  .itemDate {
+    @extend %itemText;
+    font-weight: 700;
+  }
+
+  .itemPicWrapper {
+    width: 100%;
+    height: 0;
+    flex: 1;
+    @extend %flex-center;
+
+    > image {
+      display: block;
+      height: rpx(40);
+      width: rpx(56);
+
+      margin: 0 rpx(5);
+    }
+  }
+
+  .itemTemperature {
+    @extend %itemText;
   }
 }
 
