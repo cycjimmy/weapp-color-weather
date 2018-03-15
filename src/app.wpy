@@ -43,7 +43,7 @@
           text: '关于'
         }]
       }
-    }
+    };
 
     globalData = {
       current: {},
@@ -51,12 +51,12 @@
       suggestion: {},
       suggestionDate: '',
       updated: 0
-    }
+    };
 
     constructor() {
       super();
       this.use('requestfix');
-    }
+    };
 
     onLaunch() {
     };

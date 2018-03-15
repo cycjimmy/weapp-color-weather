@@ -3,6 +3,69 @@
 
 page {
   height: auto;
+  font-size: $fontS;
 }
 
+.suggestHeader {
+  @extend %rel;
+  display: flex;
+  width: 100%;
+  height: rpx(120);
+  border-bottom: rpx(1) solid $fontColorLight;
 
+  > text {
+    display: block;
+    margin: 0 0 rpx(20) $space;
+    align-self: flex-end;
+
+    font-size: $fontS;
+    font-weight: 700;
+  }
+
+  .thick {
+    @extend %abs;
+    left: $space;
+    bottom: rpx(-4);
+    height: rpx(8);
+    width: $space;
+
+    border-radius: rpx(4);
+    background-color: $fontColor;
+  }
+}
+
+.itemWrapper {
+  padding: $space 0;
+  border-bottom: rpx(1) solid $fontColorLight;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+$iconH: rpx(42);
+
+.itemHeader {
+  padding: 0 $space;
+  height: $iconH;
+  display: flex;
+  align-items: center;
+  margin-bottom: rpx(10);
+
+  > image {
+    width: $iconH;
+    height: $iconH;
+    margin-right: rpx(10);
+  }
+
+  > text {
+    font-size: $fontS;
+    color: #312872;
+    font-weight: 700;
+  }
+}
+
+.itemText {
+  padding: 0 $space;
+  font-size: rpx(28);
+}

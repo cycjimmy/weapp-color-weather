@@ -3,17 +3,15 @@ import bmap from '../libs/bmap-wx';
 const apiKey = 'vS58Ifa5GreEZzVLCLyzFQZK5GXDokqp';
 
 export let getWeather = () => {
-  let
-    BMap = new bmap.BMapWX({
-      ak: apiKey
-    })
-    // default resolve data
-    , result = {
-      current: {},
-      forecast: [],
-      suggestion: {}
-    }
-  ;
+  let BMap = new bmap.BMapWX({
+    ak: apiKey
+  });
+  // default resolve data
+  let result = {
+    current: {},
+    forecast: [],
+    suggestion: {}
+  };
 
   return new Promise((resolve, reject) => {
     let fail = (data) => {
@@ -51,15 +49,17 @@ export let getWeather = () => {
       result.suggestion.cold = suggestion[2];
       result.suggestion.sport = suggestion[3];
       result.suggestion.carWash = suggestion[1];
+
+      ['dress', 'uv', 'cold', 'sport', 'carWash'].forEach(tip => {
+        result.suggestion[tip].tip = tip;
+      });
       console.log(data);
-      resolve(result);
+      setTimeout(() => resolve(result), 0);
     };
 
     BMap.weather({
       fail: fail,
       success: success
     });
-  })
-
-
+  });
 };

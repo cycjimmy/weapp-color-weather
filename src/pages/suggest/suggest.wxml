@@ -1,16 +1,35 @@
-<view>{{ suggestionDate }}</view>
+<view class="suggestHeader">
+  <text>{{ suggestionDate }}</text>
+  <view class="thick"></view>
+</view>
 
-<view>{{ suggestion.dress.tipt }}: {{ suggestion.dress.zs }}</view>
-<view>{{ suggestion.dress.des }}</view>
+<template name="suggestItem">
+  <view class="itemWrapper">
+    <view class="itemHeader">
+      <image src="../../static/images/icon-{{ tip }}.svg" mode="aspectFit"></image>
+      <text>{{ tipt }}: {{ zs }}</text>
+    </view>
+    <view class="itemText">{{ des }}</view>
+  </view>
+</template>
 
-<view>{{ suggestion.uv.tipt }}: {{ suggestion.uv.zs }}</view>
-<view>{{ suggestion.uv.des }}</view>
+<block wx:if="{{ suggestion.dress }}">
+  <template is="suggestItem" data="{{ ...suggestion.dress }}"/>
+</block>
 
-<view>{{ suggestion.cold.tipt }}: {{ suggestion.cold.zs }}</view>
-<view>{{ suggestion.cold.des }}</view>
+<block wx:if="{{ suggestion.uv }}">
+  <template is="suggestItem" data="{{ ...suggestion.uv }}"/>
+</block>
 
-<view>{{ suggestion.sport.tipt }}: {{ suggestion.sport.zs }}</view>
-<view>{{ suggestion.sport.des }}</view>
+<block wx:if="{{ suggestion.cold }}">
+  <template is="suggestItem" data="{{ ...suggestion.cold }}"/>
+</block>
 
-<view>{{ suggestion.carWash.tipt }}: {{ suggestion.carWash.zs }}</view>
-<view>{{ suggestion.carWash.des }}</view>
+<block wx:if="{{ suggestion.sport }}">
+  <template is="suggestItem" data="{{ ...suggestion.sport }}"/>
+</block>
+
+<block wx:if="{{ suggestion.carWash }}">
+  <template is="suggestItem" data="{{ ...suggestion.carWash }}"/>
+</block>
+
