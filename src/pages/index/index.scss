@@ -20,21 +20,23 @@
 }
 
 .bgCircle {
-  $bgCircleH: rpx(400);
+  $bgCircleH: rpx(440);
 
   @extend %abs;
   z-index: 0;
-  top: 24%;
+  top: 22%;
   right: rpx(-200);
   width: $bgCircleH;
   height: $bgCircleH;
 
   border-radius: 50%;
   background-color: #EFD13F;
+  opacity: .9;
+  transition: opacity 2s;
 }
 
 .bgCircleHover {
-  opacity: .8;
+  opacity: .6;
 }
 
 .currentCityWrapper {
@@ -56,27 +58,18 @@
 
 .currentCityKazari {
   @extend %rel;
-  height: rpx(8);
+  height: rpx(1);
+  background-color: $fontColorLight;
 
   .thick {
-    @extend %rel;
+    @extend %abs;
     left: 0;
-    top: 0;
+    top: rpx(-2);
     height: rpx(8);
     width: rpx(40);
 
     border-radius: rpx(4);
     background-color: $fontColor;
-  }
-
-  .line {
-    @extend %rel;
-    left: 0;
-    top: rpx(4);
-    height: rpx(1);
-    width: 100%;
-
-    background-color: $fontColorLight;
   }
 }
 
@@ -102,6 +95,7 @@ $temperatureNumSize: 160rpx;
 
 .temperatureNum {
   height: 100%;
+  margin-right: rpx(10);
 
   line-height: $temperatureNumSize;
   font-size: $temperatureNumSize;
@@ -128,6 +122,7 @@ $temperatureNumSize: 160rpx;
 .showDay {
   $showDaySize: rpx(35);
   height: $showDaySize;
+  margin-left: rpx(10);
   line-height: $showDaySize;
   font-size: $showDaySize;
 

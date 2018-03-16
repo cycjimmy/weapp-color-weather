@@ -1,84 +1,78 @@
 <view class="fullContainer">
-  <!--bgCircle-->
-  <view class="bgCircle" hover-class="bgCircleHover"></view>
+  <block wx:if="{{ dataReady }}">
 
-  <!--currentCity-->
-  <view class="currentCityWrapper">
-    <text>{{ current.currentCity }}</text>
-    <view class="currentCityKazari">
+    <!--bgCircle-->
+    <view class="bgCircle" hover-class="bgCircleHover"></view>
+
+    <!--currentCity-->
+    <view class="currentCityWrapper">
+      <text>{{ current.currentCity }}</text>
+      <view class="currentCityKazari">
+        <view class="thick"></view>
+      </view>
+    </view>
+
+    <!--maxMinTemperature-->
+    <view class="maxMinTemperature">最高 {{ current.maxTemperature }} | 最低 {{ current.minTemperature }}</view>
+
+    <!--temperatureWrapper-->
+    <view class="temperatureWrapper">
+      <view class="temperatureNum">{{ current.currentTemperature }}</view>
+      <view class="temperatureRight">
+        <view class="temperatureUnit">℃</view>
+        <view class="showDay">{{ current.day }}</view>
+      </view>
+    </view>
+
+    <view class="kazariLine"></view>
+
+    <!--pm25Wrapper-->
+    <view class="pm25Wrapper">
+      <image src="../../static/images/icon-pm25.svg" mode="aspectFit"></image>
+      <text>{{ current.pm25 }}</text>
+    </view>
+
+    <view class="kazariLine"></view>
+
+    <!--weatherDescWrapper-->
+    <view class="weatherDescWrapper">
+      <view class="weatherPicWrapper">
+        <image src="{{ current.dayPictureUrl }}" mode="aspectFit"></image>
+        <image src="{{ current.nightPictureUrl }}" mode="aspectFit"></image>
+      </view>
+
+      <text>{{ current.weatherDesc }}</text>
+      <text>{{ current.wind }}</text>
+    </view>
+
+    <view class="kazariLine"></view>
+
+    <view class="emptyHeight"></view>
+
+    <!--forecastWrapper-->
+    <view class="forecastWrapper">
+
+      <template name="forecastItem">
+        <view class="itemWrapper">
+          <text class="itemDate">{{ date }}</text>
+          <view class="itemPicWrapper">
+            <image src="{{ dayPictureUrl }}" mode="aspectFit"></image>
+            <image src="{{ nightPictureUrl }}" mode="aspectFit"></image>
+          </view>
+          <text class="itemTemperature">{{ temperature }}</text>
+        </view>
+      </template>
+
+      <template is="forecastItem" data="{{ ...forecast[0] }}"/>
+
       <view class="line"></view>
-      <view class="thick"></view>
-    </view>
-  </view>
 
-  <!--maxMinTemperature-->
-  <view class="maxMinTemperature">最高 {{ current.maxTemperature }} | 最低 {{ current.minTemperature }}</view>
+      <template is="forecastItem" data="{{ ...forecast[1] }}"/>
 
-  <!--temperatureWrapper-->
-  <view class="temperatureWrapper">
-    <view class="temperatureNum">{{ current.currentTemperature }}</view>
-    <view class="temperatureRight">
-      <view class="temperatureUnit">℃</view>
-      <view class="showDay">{{ current.day }}</view>
-    </view>
-  </view>
+      <view class="line"></view>
 
-  <view class="kazariLine"></view>
-
-  <!--pm25Wrapper-->
-  <view class="pm25Wrapper">
-    <image src="../../static/images/icon-pm25.svg" mode="aspectFit"></image>
-    <text>{{ current.pm25 }}</text>
-  </view>
-
-  <view class="kazariLine"></view>
-
-  <!--weatherDescWrapper-->
-  <view class="weatherDescWrapper">
-    <view class="weatherPicWrapper">
-      <image src="{{ current.dayPictureUrl }}" mode="aspectFit"></image>
-      <image src="{{ current.nightPictureUrl }}" mode="aspectFit"></image>
+      <template is="forecastItem" data="{{ ...forecast[2] }}"/>
     </view>
 
-    <text>{{ current.weatherDesc }}</text>
-    <text>{{ current.wind }}</text>
-  </view>
-
-  <view class="kazariLine"></view>
-
-  <view class="emptyHeight"></view>
-
-  <!--forecastWrapper-->
-  <view class="forecastWrapper">
-    <view class="itemWrapper">
-      <text class="itemDate">{{ forecast[0].date }}</text>
-      <view class="itemPicWrapper">
-        <image src="{{ forecast[0].dayPictureUrl }}" mode="aspectFit"></image>
-        <image src="{{ forecast[0].nightPictureUrl }}" mode="aspectFit"></image>
-      </view>
-      <text class="itemTemperature">{{ forecast[0].temperature }}</text>
-    </view>
-
-    <view class="line"></view>
-
-    <view class="itemWrapper">
-      <text class="itemDate">{{ forecast[1].date }}</text>
-      <view class="itemPicWrapper">
-        <image src="{{ forecast[1].dayPictureUrl }}" mode="aspectFit"></image>
-        <image src="{{ forecast[1].nightPictureUrl }}" mode="aspectFit"></image>
-      </view>
-      <text class="itemTemperature">{{ forecast[1].temperature }}</text>
-    </view>
-
-    <view class="line"></view>
-
-    <view class="itemWrapper">
-      <text class="itemDate">{{ forecast[2].date }}</text>
-      <view class="itemPicWrapper">
-        <image src="{{ forecast[2].dayPictureUrl }}" mode="aspectFit"></image>
-        <image src="{{ forecast[2].nightPictureUrl }}" mode="aspectFit"></image>
-      </view>
-      <text class="itemTemperature">{{ forecast[2].temperature }}</text>
-    </view>
-  </view>
+  </block>
 </view>

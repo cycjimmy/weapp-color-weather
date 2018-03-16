@@ -18,8 +18,9 @@ page {
     margin: 0 0 rpx(20) $space;
     align-self: flex-end;
 
-    font-size: $fontS;
+    font-size: rpx(32);
     font-weight: 700;
+    color: darken($colorGreen, 5%);
   }
 
   .thick {
@@ -36,7 +37,7 @@ page {
 
 .itemWrapper {
   padding: $space 0;
-  border-bottom: rpx(1) solid $fontColorLight;
+  border-bottom: rpx(1) solid lighten($fontColorLight, 20%);
 
   &:last-of-type {
     border-bottom: none;
@@ -60,7 +61,7 @@ $iconH: rpx(42);
 
   > text {
     font-size: $fontS;
-    color: #312872;
+    color: $colorGreen;
     font-weight: 700;
   }
 }

@@ -1,35 +1,38 @@
-<view class="suggestHeader">
-  <text>{{ suggestionDate }}</text>
-  <view class="thick"></view>
-</view>
+<block wx:if="{{ dataReady }}">
 
-<template name="suggestItem">
-  <view class="itemWrapper">
-    <view class="itemHeader">
-      <image src="../../static/images/icon-{{ tip }}.svg" mode="aspectFit"></image>
-      <text>{{ tipt }}: {{ zs }}</text>
-    </view>
-    <view class="itemText">{{ des }}</view>
+  <view class="suggestHeader">
+    <text>{{ suggestionDate }}</text>
+    <view class="thick"></view>
   </view>
-</template>
 
-<block wx:if="{{ suggestion.dress }}">
-  <template is="suggestItem" data="{{ ...suggestion.dress }}"/>
+  <template name="suggestItem">
+    <view class="itemWrapper">
+      <view class="itemHeader">
+        <image src="../../static/images/icon-{{ tip }}.svg" mode="aspectFit"></image>
+        <text>{{ tipt }}: {{ zs }}</text>
+      </view>
+      <view class="itemText">{{ des }}</view>
+    </view>
+  </template>
+
+  <block wx:if="{{ suggestion.dress }}">
+    <template is="suggestItem" data="{{ ...suggestion.dress }}"/>
+  </block>
+
+  <block wx:if="{{ suggestion.uv }}">
+    <template is="suggestItem" data="{{ ...suggestion.uv }}"/>
+  </block>
+
+  <block wx:if="{{ suggestion.cold }}">
+    <template is="suggestItem" data="{{ ...suggestion.cold }}"/>
+  </block>
+
+  <block wx:if="{{ suggestion.sport }}">
+    <template is="suggestItem" data="{{ ...suggestion.sport }}"/>
+  </block>
+
+  <block wx:if="{{ suggestion.carWash }}">
+    <template is="suggestItem" data="{{ ...suggestion.carWash }}"/>
+  </block>
+
 </block>
-
-<block wx:if="{{ suggestion.uv }}">
-  <template is="suggestItem" data="{{ ...suggestion.uv }}"/>
-</block>
-
-<block wx:if="{{ suggestion.cold }}">
-  <template is="suggestItem" data="{{ ...suggestion.cold }}"/>
-</block>
-
-<block wx:if="{{ suggestion.sport }}">
-  <template is="suggestItem" data="{{ ...suggestion.sport }}"/>
-</block>
-
-<block wx:if="{{ suggestion.carWash }}">
-  <template is="suggestItem" data="{{ ...suggestion.carWash }}"/>
-</block>
-

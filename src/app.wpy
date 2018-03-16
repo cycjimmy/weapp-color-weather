@@ -6,7 +6,12 @@
 
   import {
     getWeather
-  } from './shared/commonFuncs';
+  } from './shared/weather.funcs';
+
+  import {
+    getStorage,
+    setStorage
+  } from './shared/storage.funcs';
 
   export default class extends wepy.app {
     config = {
@@ -50,7 +55,8 @@
       forecast: [],
       suggestion: {},
       suggestionDate: '',
-      updated: 0
+      updated: 0,
+      isBusy: false
     };
 
     constructor() {
@@ -62,8 +68,47 @@
     };
 
     setGlobalWeather() {
+      if (this.globalData.isBusy) {
+        return new Promise(resolve => setTimeout(resolve, 2e3))
+          .then(() => this.setGlobalWeather());
+      }
+
       const TIMEOUT = 60 * 60 * 1e3;  // 1hour
       let _now = new Date().getTime();
+      this.globalData.isBusy = true;
+      console.log(this);
+
+      let _getWeatherFromData = weatherData => new Promise(resolve => {
+        this.globalData.current = weatherData.current;
+        this.globalData.forecast = weatherData.forecast;
+        this.globalData.suggestionDate = weatherData.suggestionDate;
+        this.globalData.suggestion = weatherData.suggestion;
+        this.globalData.updated = weatherData.updated;
+
+        setTimeout(resolve, 10);
+      });
+      let _promiseFinalTask = () => {
+        wx.hideLoading();
+        this.globalData.isBusy = false;
+      };
+
+      let _getWeatherFromSever = () => Promise.resolve()
+        .then(() => new Promise(resolve => {
+          wx.showLoading({
+            title: '获取中'
+          });
+          setTimeout(resolve, 0);
+        }))
+        .then(() => getWeather())
+        .then(weatherData => {
+          weatherData.updated = _now;
+          return setStorage(weatherData);
+        })
+        .then(weatherData => _getWeatherFromData(weatherData))
+        .then(
+          () => _promiseFinalTask(),
+          () => _promiseFinalTask()
+        );
 
       if (
         this.globalData.updated &&
@@ -71,17 +116,18 @@
         return Promise.resolve();
       }
 
-      return getWeather()
-        .then(weatherData => new Promise(resolve => {
+      return getStorage()
+        .then((weatherData) => {
           console.log(weatherData);
-          this.globalData.current = weatherData.current;
-          this.globalData.forecast = weatherData.forecast;
-          this.globalData.suggestionDate = weatherData.suggestionDate;
-          this.globalData.suggestion = weatherData.suggestion;
-          this.globalData.updated = new Date().getTime();
-
-          setTimeout(resolve, 10);
-        }));
+          if (weatherData.updated + TIMEOUT < _now) {
+            return _getWeatherFromSever();
+          } else {
+            return _getWeatherFromData(weatherData);
+          }
+        }, (err) => {
+          console.log(err);
+          return _getWeatherFromSever();
+        });
     };
   };
 </script>

@@ -4,25 +4,38 @@
 <script>
   import wepy from 'wepy';
 
+  import {
+    modalForGetWeatherFail
+  } from '../../shared/modal.funcs';
+
   export default class extends wepy.page {
     config = {
-      navigationBarTitleText: '色彩天气小贴士'
+      navigationBarTitleText: '天气小贴士'
     };
 
     data = {
+      dataReady: false,
       suggestion: {},
       suggestionDate: ''
     };
 
-    methods = {
-    };
+    methods = {};
 
     onLoad() {
-      this.$parent.setGlobalWeather()
+      this._setGlobalWeather();
+    };
+
+    _setGlobalWeather() {
+      return this.$parent.setGlobalWeather()
         .then(() => {
           this.suggestion = this.$parent.globalData.suggestion;
           this.suggestionDate = this.$parent.globalData.suggestionDate;
+          this.dataReady = true;
           this.$apply();
+        })
+        .catch(() => {
+          modalForGetWeatherFail()
+            .then(() => this.setGlobalWeather());
         });
     };
   };

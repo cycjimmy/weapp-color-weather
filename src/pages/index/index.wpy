@@ -4,26 +4,39 @@
 <script>
   import wepy from 'wepy';
 
+  import {
+    modalForGetWeatherFail
+  } from '../../shared/modal.funcs';
+
   export default class extends wepy.page {
     config = {
       navigationBarTitleText: '色彩天气'
     };
 
     data = {
+      dataReady: false,
       current: {},
       forecast: []
     };
 
-    methods = {
-    };
+    methods = {};
 
     onLoad() {
-      this.$parent.setGlobalWeather()
+      this._setGlobalWeather();
+    };
+
+    _setGlobalWeather() {
+      return this.$parent.setGlobalWeather()
         .then(() => {
           this.current = this.$parent.globalData.current;
           this.forecast = this.$parent.globalData.forecast;
+          this.dataReady = true;
           this.$apply();
+        })
+        .catch(() => {
+          modalForGetWeatherFail()
+            .then(() => this.setGlobalWeather());
         });
-    }
+    };
   };
 </script>
