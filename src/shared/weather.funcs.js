@@ -2,6 +2,24 @@ import bmap from '../libs/bmap-wx';
 
 const apiKey = 'vS58Ifa5GreEZzVLCLyzFQZK5GXDokqp';
 
+export let setAQI = (sAQI) => {
+  let nAQI = parseInt(sAQI, 10);
+
+  if (nAQI <= 50) {
+    return sAQI + ' | 优'
+  } else if (nAQI <= 100) {
+    return sAQI + ' | 良'
+  } else if (nAQI <= 150) {
+    return sAQI + ' | 轻度污染'
+  } else if (nAQI <= 200) {
+    return sAQI + ' | 中度污染'
+  } else if (nAQI <= 300) {
+    return sAQI + ' | 重度污染'
+  } else {
+    return sAQI + ' | 严重污染'
+  }
+};
+
 export let getWeather = () => {
   let BMap = new bmap.BMapWX({
     ak: apiKey
@@ -29,7 +47,7 @@ export let getWeather = () => {
       result.current.maxTemperature = currentWeather.temperature.replace(/\s.+$/g, '');
       result.current.minTemperature = currentWeather.temperature.replace(/^.+\s|℃$/g, '');
       result.current.day = currentWeather.date.replace(/\s.+$/g, '');
-      result.current.pm25 = originalData.pm25;
+      result.current.pm25 = setAQI(originalData.pm25);
       result.current.dayPictureUrl = currentWeather.dayPictureUrl;
       result.current.nightPictureUrl = currentWeather.nightPictureUrl;
       result.current.weatherDesc = currentWeather.weather;
@@ -63,3 +81,4 @@ export let getWeather = () => {
     });
   });
 };
+
