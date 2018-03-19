@@ -1,0 +1,34 @@
+<style lang="scss" src="suggestInner.scss"></style>
+<template lang="wxml" src="suggestInner.wxml"></template>
+
+<script>
+  import wepy from 'wepy';
+
+  export default class extends wepy.page {
+    config = {
+      navigationBarTitleText: ''
+    };
+
+    data = {
+      iconUrl: '',
+      title: '',
+      zs: '',
+      des: ''
+    };
+
+    methods = {};
+
+    onLoad(option) {
+      wx.setNavigationBarTitle({
+        title: option.title
+      });
+
+      this.iconUrl = '../../../static/images/icon-' + option.tip + '.svg';
+      this.title = option.title;
+      this.zs = option.zs;
+      this.des = option.des;
+
+      setTimeout(() => this.$apply(), 100);
+    };
+  };
+</script>

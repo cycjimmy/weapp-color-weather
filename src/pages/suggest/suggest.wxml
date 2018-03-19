@@ -1,38 +1,44 @@
-<block wx:if="{{ dataReady }}">
-
-  <view class="suggestHeader">
-    <text>{{ suggestionDate }}</text>
-    <view class="thick"></view>
+<template name="suggestItem">
+  <view @tap="navigateTo" data-tip="{{ tip }}" class="itemWrapper">
+    <image class="suggestIcon" src="../../static/images/icon-{{ tip }}.svg" mode="aspectFit"></image>
+    <text>{{ tipt }}</text>
+    <text class="zs">{{ zs }}</text>
+    <image class="rightIcon" src="../../static/images/icon-right.svg" mode="aspectFit"></image>
   </view>
+</template>
 
-  <template name="suggestItem">
-    <view class="itemWrapper">
-      <view class="itemHeader">
-        <image src="../../static/images/icon-{{ tip }}.svg" mode="aspectFit"></image>
-        <text>{{ tipt }}: {{ zs }}</text>
+
+<view class="fullContainer">
+  <block wx:if="{{ isInitOver }}">
+    <!-- dataReady true -->
+    <block wx:if="{{ dataReady }}">
+      <block wx:if="{{ suggestion.dress }}">
+        <template is="suggestItem" data="{{ ...suggestion.dress }}"/>
+      </block>
+
+      <block wx:if="{{ suggestion.uv }}">
+        <template is="suggestItem" data="{{ ...suggestion.uv }}"/>
+      </block>
+
+      <block wx:if="{{ suggestion.cold }}">
+        <template is="suggestItem" data="{{ ...suggestion.cold }}"/>
+      </block>
+
+      <block wx:if="{{ suggestion.sport }}">
+        <template is="suggestItem" data="{{ ...suggestion.sport }}"/>
+      </block>
+
+      <block wx:if="{{ suggestion.carWash }}">
+        <template is="suggestItem" data="{{ ...suggestion.carWash }}"/>
+      </block>
+    </block>
+
+    <!-- dataReady false -->
+    <block wx:else>
+      <view @tap="retry" class="retryBtn">
+        <image src="../../static/images/icon-load.svg" mode="aspectFit"></image>
+        <text>点击重试</text>
       </view>
-      <view class="itemText">{{ des }}</view>
-    </view>
-  </template>
-
-  <block wx:if="{{ suggestion.dress }}">
-    <template is="suggestItem" data="{{ ...suggestion.dress }}"/>
+    </block>
   </block>
-
-  <block wx:if="{{ suggestion.uv }}">
-    <template is="suggestItem" data="{{ ...suggestion.uv }}"/>
-  </block>
-
-  <block wx:if="{{ suggestion.cold }}">
-    <template is="suggestItem" data="{{ ...suggestion.cold }}"/>
-  </block>
-
-  <block wx:if="{{ suggestion.sport }}">
-    <template is="suggestItem" data="{{ ...suggestion.sport }}"/>
-  </block>
-
-  <block wx:if="{{ suggestion.carWash }}">
-    <template is="suggestItem" data="{{ ...suggestion.carWash }}"/>
-  </block>
-
-</block>
+</view>

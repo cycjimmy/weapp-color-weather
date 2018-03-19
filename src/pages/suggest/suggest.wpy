@@ -14,12 +14,31 @@
     };
 
     data = {
+      isInitOver: false,
       dataReady: false,
-      suggestion: {},
-      suggestionDate: ''
+      suggestion: {}
     };
 
-    methods = {};
+    methods = {
+      navigateTo(event) {
+        let _tip = event.currentTarget.dataset.tip;
+        console.log('tip: ' + _tip);
+
+        let _suggestion = this.suggestion[_tip];
+        if (_suggestion) {
+          this.$root.$navigate('suggestInner/suggestInner', {
+            tip: _tip,
+            title: _suggestion.tipt,
+            zs: _suggestion.zs,
+            des: _suggestion.des
+          });
+        }
+      },
+      retry() {
+        console.log('retry');
+        this._setGlobalWeather();
+      }
+    };
 
     onLoad() {
       this._setGlobalWeather();
@@ -29,13 +48,14 @@
       return this.$parent.setGlobalWeather()
         .then(() => {
           this.suggestion = this.$parent.globalData.suggestion;
-          this.suggestionDate = this.$parent.globalData.suggestionDate;
           this.dataReady = true;
-          this.$apply();
+          this.isInitOver = true;
+          setTimeout(() => this.$apply(), 100);
         })
         .catch(() => {
+          this.isInitOver = true;
           modalForGetWeatherFail()
-            .then(() => this.setGlobalWeather());
+            .then(() => this._setGlobalWeather());
         });
     };
   };

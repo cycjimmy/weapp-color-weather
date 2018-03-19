@@ -1,0 +1,29 @@
+@import '../../../theme/variables';
+@import '../../../theme/utilities';
+
+.fullContainer {
+  align-items: center;
+}
+
+.suggestIcon {
+  $iconH: rpx(100);
+  width: $iconH;
+  height: $iconH;
+  margin: $space;
+}
+
+.zs {
+  font-size: $fontS;
+  background-color: lighten($fontColor, 24%);
+  color: white;
+  border-radius: rpx(40);
+  padding: rpx(5) $fontS;
+}
+
+.des {
+  padding: $space;
+  margin-top: $space;
+
+  font-size: $fontS;
+  background-color: lighten($bgc, 2%);
+}

@@ -46,11 +46,23 @@
   margin: $space;
   width: rpx(500);
   height: rpx(98);
+}
 
-  text {
+.currentCityHeader {
+  display: flex;
+  height: rpx(90);
+  align-items: center;
+
+  > image {
+    $iconH: rpx(40);
+    width: $iconH;
+    height: $iconH;
+    margin: 0 rpx(20);
+  }
+
+  > text {
     display: block;
-    height: rpx(90);
-    line-height: rpx(90);
+
     font-size: rpx(50);
     font-weight: 700;
   }
@@ -85,7 +97,7 @@
   font-weight: 400;
 }
 
-$temperatureNumSize: 160rpx;
+$temperatureNumSize: rpx(160);
 .temperatureWrapper {
   height: $temperatureNumSize;
   width: rpx(710);
@@ -238,5 +250,4 @@ $temperatureNumSize: 160rpx;
     @extend %itemText;
   }
 }
-
 

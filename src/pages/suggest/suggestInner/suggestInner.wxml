@@ -1,0 +1,5 @@
+<view class="fullContainer">
+  <image class="suggestIcon" src="{{ iconUrl }}" mode="aspectFit"></image>
+  <view class="zs">{{ zs }}</view>
+  <view class="des">{{ des }}</view>
+</view>

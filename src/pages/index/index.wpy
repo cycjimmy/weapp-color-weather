@@ -14,12 +14,18 @@
     };
 
     data = {
+      isInitOver: false,
       dataReady: false,
       current: {},
       forecast: []
     };
 
-    methods = {};
+    methods = {
+      retry() {
+        console.log('retry');
+        this._setGlobalWeather();
+      }
+    };
 
     onLoad() {
       this._setGlobalWeather();
@@ -31,11 +37,13 @@
           this.current = this.$parent.globalData.current;
           this.forecast = this.$parent.globalData.forecast;
           this.dataReady = true;
-          this.$apply();
+          this.isInitOver = true;
+          setTimeout(() => this.$apply(), 100);
         })
         .catch(() => {
+          this.isInitOver = true;
           modalForGetWeatherFail()
-            .then(() => this.setGlobalWeather());
+            .then(() => this._setGlobalWeather());
         });
     };
   };

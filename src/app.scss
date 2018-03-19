@@ -1,4 +1,5 @@
 @import './theme/variables';
+@import './theme/utilities';
 
 page {
   height: 100%;
@@ -17,4 +18,22 @@ page {
   flex-direction: column;
 
   overflow: hidden;
+}
+
+.retryBtn {
+  margin: auto;
+
+  @extend %flex-center;
+  flex-direction: column;
+  > image {
+    $iconH: rpx(64);
+    width: $iconH;
+    height: $iconH;
+  }
+
+  > text {
+    display: block;
+    margin-top: rpx(20);
+    font-size: $fontS;
+  }
 }

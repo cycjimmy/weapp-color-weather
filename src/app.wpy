@@ -18,7 +18,8 @@
       pages: [
         'pages/index/index',
         'pages/suggest/suggest',
-        'pages/about/about'
+        'pages/about/about',
+        'pages/suggest/suggestInner/suggestInner'
       ],
       window: {
         backgroundTextStyle: 'light',
@@ -54,7 +55,6 @@
       current: {},
       forecast: [],
       suggestion: {},
-      suggestionDate: '',
       updated: 0,
       isBusy: false
     };
@@ -78,6 +78,7 @@
       let _now = new Date().getTime();
 
       let _promiseFinalTask = () => {
+        console.log('promiseFinalTask');
         wx.hideLoading();
         this.globalData.isBusy = false;
       };
@@ -85,15 +86,16 @@
       let _getWeatherFromData = weatherData => new Promise(resolve => {
         this.globalData.current = weatherData.current;
         this.globalData.forecast = weatherData.forecast;
-        this.globalData.suggestionDate = weatherData.suggestionDate;
         this.globalData.suggestion = weatherData.suggestion;
         this.globalData.updated = weatherData.updated;
         this.globalData.isBusy = false;
         setTimeout(resolve, 100);
-      }).then(
-        () => _promiseFinalTask(),
-        () => _promiseFinalTask()
-      );
+      })
+        .then(() => _promiseFinalTask())
+        .catch((err) => {
+          _promiseFinalTask();
+          return Promise.reject(err);
+        });
 
       let _getWeatherFromSever = () => Promise.resolve()
         .then(() => new Promise(resolve => {
