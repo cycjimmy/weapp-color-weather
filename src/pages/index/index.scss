@@ -11,7 +11,7 @@
   height: rpx(1);
   width: rpx(290);
   margin: rpx(30) $space;
-  background-color: $fontColorLight;
+  background-color: $lineColor;
   align-self: flex-start;
 }
 
@@ -28,15 +28,16 @@
   right: rpx(-200);
   width: $bgCircleH;
   height: $bgCircleH;
+  filter: blur(rpx(6));
 
   border-radius: 50%;
   background-color: #EFD13F;
-  opacity: .9;
+  opacity: .8;
   transition: opacity 2s;
 }
 
 .bgCircleHover {
-  opacity: .6;
+  opacity: .5;
 }
 
 .currentCityWrapper {
@@ -102,6 +103,7 @@ $temperatureNumSize: rpx(160);
   height: $temperatureNumSize;
   width: rpx(710);
   margin-left: $space;
+  margin-top: rpx(10);
   display: flex;
 }
 
@@ -209,7 +211,7 @@ $temperatureNumSize: rpx(160);
     height: rpx(100);
     margin: 0 rpx(10);
 
-    background-color: $fontColorLight;
+    background-color: $lineColor;
   }
 
   > .itemWrapper {

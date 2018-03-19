@@ -1,4 +1,7 @@
 import bmap from '../libs/bmap-wx';
+import {
+  modalForReAuth
+} from './modal.funcs';
 
 const apiKey = 'vS58Ifa5GreEZzVLCLyzFQZK5GXDokqp';
 
@@ -20,6 +23,19 @@ export let setAQI = (sAQI) => {
   }
 };
 
+let reAuth = () => {
+  console.log('getLocation未授权');
+
+  return modalForReAuth()
+    .then(() => new Promise((resolve, reject) => {
+      wx.openSetting({
+        success: (res) => res.authSetting['scope.userLocation']
+          ? resolve()
+          : reject(new Error('unauthorized'))
+      });
+    }));
+};
+
 export let getWeather = () => {
   let BMap = new bmap.BMapWX({
     ak: apiKey
@@ -32,9 +48,8 @@ export let getWeather = () => {
   };
 
   return new Promise((resolve, reject) => {
-    let fail = (data) => {
-      console.log(data);
-      reject(data);
+    let fail = (err) => {
+      reject(err);
     };
     let success = (data) => {
       let originalData = data.originalData.results[0];
@@ -78,6 +93,74 @@ export let getWeather = () => {
       fail: fail,
       success: success
     });
+  }).catch(err => {
+    wx.hideLoading();
+    if (err.errMsg === 'getLocation:fail auth deny') {
+      return reAuth()
+        .then(() => Promise.reject(err));
+    }
+    return Promise.reject(err);
   });
 };
 
+const COLOR = {
+  sunny: '#F4E192',
+  cloudy: '#CFE2E1',
+  overcast: '#A6B2CC',
+  thunder: '#BD8AFF',
+  rain: '#60BBEF',
+  sandstorm: '#99825F',
+  haze: '#9DA5B2',
+  fog: '#C7D2D3',
+  snow: '#CEEAED'
+};
+
+export let getColorStr = (weatherText) => {
+  let _getColor = (weatherStr) => {
+    if (weatherStr.indexOf('晴') !== -1) {
+      return COLOR.sunny;
+    }
+
+    if (weatherStr.indexOf('多云') !== -1) {
+      return COLOR.cloudy;
+    }
+
+    if (weatherStr.indexOf('阴') !== -1) {
+      return COLOR.overcast;
+    }
+
+    if (weatherStr.indexOf('雷') !== -1) {
+      return COLOR.thunder;
+    }
+
+    if (weatherStr.indexOf('雨') !== -1) {
+      return COLOR.rain;
+    }
+
+    if (
+      weatherStr.indexOf('沙') !== -1 ||
+      weatherStr.indexOf('尘') !== -1
+    ) {
+      return COLOR.sandstorm;
+    }
+
+    if (weatherStr.indexOf('霾') !== -1) {
+      return COLOR.haze;
+    }
+
+    if (weatherStr.indexOf('雾') !== -1) {
+      return COLOR.fog;
+    }
+
+    if (weatherStr.indexOf('雪') !== -1) {
+      return COLOR.snow;
+    }
+  };
+
+  let _aColor = weatherText
+    .split('转')
+    .map(weather => _getColor(weather));
+
+  console.log(_aColor);
+  return _aColor.join(',');
+};

@@ -10,12 +10,15 @@
     };
 
     data = {
+      version: 'Ver 0.0.8',
+      repository: 'cycjimmy/weapp-color-weather',
+      license: 'MIT',
+      copyright: 'Copyright (c) 2018 cycjimmy'
     };
 
-    methods = {
-    };
+    methods = {};
 
     onLoad() {
-    }
+    };
   };
 </script>

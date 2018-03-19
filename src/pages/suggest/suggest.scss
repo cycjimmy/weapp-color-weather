@@ -2,7 +2,7 @@
 @import '../../theme/utilities';
 
 .itemWrapper {
-  $itemBorder: rpx(1) solid darken($bgc, 5%);
+  $itemBorder: rpx(1) solid $lineColor;
 
   @extend %flex-center;
   justify-content: flex-start;

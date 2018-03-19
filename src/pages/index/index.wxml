@@ -4,7 +4,9 @@
     <block wx:if="{{ dataReady }}">
 
       <!--bgCircle-->
-      <view class="bgCircle" hover-class="bgCircleHover"></view>
+      <view class="bgCircle"
+            hover-class="bgCircleHover"
+            style="{{ circleStyleText }}"></view>
 
       <!--currentCity-->
       <view class="currentCityWrapper">

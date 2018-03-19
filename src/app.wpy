@@ -55,8 +55,7 @@
       current: {},
       forecast: [],
       suggestion: {},
-      updated: 0,
-      isBusy: false
+      updated: 0
     };
 
     constructor() {
@@ -68,19 +67,12 @@
     };
 
     setGlobalWeather() {
-      console.log(this.globalData.isBusy);
-      if (this.globalData.isBusy) {
-        return new Promise(resolve => setTimeout(resolve, 2e3))
-          .then(() => this.setGlobalWeather());
-      }
-
       const TIMEOUT = 60 * 60 * 1e3;  // 1hour
       let _now = new Date().getTime();
 
       let _promiseFinalTask = () => {
         console.log('promiseFinalTask');
         wx.hideLoading();
-        this.globalData.isBusy = false;
       };
 
       let _getWeatherFromData = weatherData => new Promise(resolve => {
@@ -88,7 +80,6 @@
         this.globalData.forecast = weatherData.forecast;
         this.globalData.suggestion = weatherData.suggestion;
         this.globalData.updated = weatherData.updated;
-        this.globalData.isBusy = false;
         setTimeout(resolve, 100);
       })
         .then(() => _promiseFinalTask())
@@ -99,9 +90,7 @@
 
       let _getWeatherFromSever = () => Promise.resolve()
         .then(() => new Promise(resolve => {
-          wx.showLoading({
-            title: '获取中'
-          });
+          wx.showLoading({title: '获取中'});
           setTimeout(resolve, 100);
         }))
         .then(() => getWeather())
@@ -116,8 +105,6 @@
         this.globalData.updated + TIMEOUT > _now) {
         return Promise.resolve();
       }
-
-      this.globalData.isBusy = true;
 
       return Promise.resolve()
         .then(() => getStorage())

@@ -8,6 +8,10 @@
     modalForGetWeatherFail
   } from '../../shared/modal.funcs';
 
+  import {
+    getColorStr
+  } from '../../shared/weather.funcs';
+
   export default class extends wepy.page {
     config = {
       navigationBarTitleText: '色彩天气'
@@ -16,6 +20,7 @@
     data = {
       isInitOver: false,
       dataReady: false,
+      circleStyleText: '',
       current: {},
       forecast: []
     };
@@ -36,8 +41,13 @@
         .then(() => {
           this.current = this.$parent.globalData.current;
           this.forecast = this.$parent.globalData.forecast;
+          this.circleStyleText =
+            'background: linear-gradient(to bottom, ' +
+            getColorStr(this.current.weatherDesc) +
+            ')';
           this.dataReady = true;
           this.isInitOver = true;
+
           setTimeout(() => this.$apply(), 100);
         })
         .catch(() => {

@@ -16,3 +16,21 @@ export let modalForGetWeatherFail = () => new Promise((resolve, reject) => {
   });
 });
 
+export let modalForReAuth = () => new Promise((resolve, reject) => {
+  wx.showModal({
+    title: '程序需要您授权位置服务以继续',
+    content: '是否进入授权页面',
+    cancelColor: '#999',
+    confirmText: '进入授权',
+    success: (res) => {
+      if (res.confirm) {
+        console.log('confirm');
+        resolve();
+      } else if (res.cancel) {
+        console.log('cancel');
+        reject(new Error('cancel'));
+      }
+    }
+  });
+});
+
