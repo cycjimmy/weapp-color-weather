@@ -16,3 +16,9 @@
   * `Settings` -> `Plugins` -> search `Vue.js` -> install
   * `Settings` -> `Editor` -> `File Types` -> `Vue.js Template` -> Add `*.wpy` in `Registered Patterns`
 
+## Related
+![WeappQRCode](./WeappQRCode.jpg)
+
+## License
+[MIT](./LICENSE)
+

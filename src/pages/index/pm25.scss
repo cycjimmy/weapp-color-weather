@@ -1,0 +1,39 @@
+@import '../../theme/variables';
+@import '../../theme/utilities';
+
+.pm25Wrapper {
+  $pm25H: rpx(60);
+
+  height: $pm25H;
+  margin-left: $space;
+  width: rpx(710);
+  display: flex;
+  align-items: center;
+
+  > image {
+    display: block;
+    height: $pm25H;
+    width: $pm25H;
+  }
+
+  > text {
+    display: block;
+    height: $pm25H;
+    margin: 0 rpx(20);
+
+    line-height: $pm25H;
+    font-size: $fontS;
+  }
+
+  > view {
+    $viewH: rpx(30);
+    width: $viewH;
+    height: $viewH;
+
+    opacity: .9;
+    background-color: white;
+    border-radius: 50%;
+    filter: blur(rpx(1));
+  }
+}
+

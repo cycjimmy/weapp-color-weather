@@ -1,0 +1,86 @@
+@import '../../theme/variables';
+@import '../../theme/utilities';
+
+.maxMinTemperature {
+  $maxMinTemperatureSize: rpx(30);
+
+  align-self: flex-start;
+  height: $maxMinTemperatureSize;
+  margin-left: $space;
+
+  line-height: $maxMinTemperatureSize;
+  font-size: $maxMinTemperatureSize;
+  font-weight: 400;
+}
+
+$temperatureNumSize: rpx(160);
+.temperatureWrapper {
+  height: $temperatureNumSize;
+  width: rpx(710);
+  margin-left: $space;
+  margin-top: rpx(10);
+  display: flex;
+}
+
+.temperatureNum {
+  height: 100%;
+  margin-right: rpx(10);
+
+  line-height: $temperatureNumSize;
+  font-size: $temperatureNumSize;
+}
+
+.temperatureRight {
+  height: 100%;
+  width: rpx(80);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.temperatureUnit {
+  $temperatureUnitSize: rpx(64);
+  height: $temperatureUnitSize;
+  line-height: $temperatureUnitSize;
+  font-size: $temperatureUnitSize;
+
+  font-weight: 700;
+}
+
+.temperatureColor {
+  $temperatureColorH: rpx(40);
+  width: $temperatureColorH;
+  height: $temperatureColorH;
+  margin-left: rpx(20);
+
+  opacity: .9;
+  background-color: white;
+  border-radius: 50%;
+  filter: blur(rpx(2));
+}
+
+$showDaySize: rpx(35);
+.showDayWrapper {
+  align-self: flex-start;
+  display: flex;
+  align-items: flex-end;
+  height: $showDaySize;
+  margin: rpx(10) $space;
+}
+
+.showDay {
+  display: block;
+  height: $showDaySize;
+  line-height: $showDaySize;
+  font-size: $showDaySize;
+  font-weight: 700;
+}
+.showUpdatedTime {
+  $showUpdatedTimeSize: rpx(26);
+  height: $showUpdatedTimeSize;
+  margin: rpx(3) rpx(10);
+  line-height: $showUpdatedTimeSize;
+  font-size: $showUpdatedTimeSize;
+  color: $fontColorLight;
+}

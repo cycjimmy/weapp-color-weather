@@ -1,5 +1,8 @@
 <template name="suggestItem">
-  <view @tap="navigateTo" data-tip="{{ tip }}" class="itemWrapper">
+  <view @tap="navigateTo"
+        data-tip="{{ tip }}"
+        class="itemWrapper"
+        hover-class="itemWrapperHover">
     <image class="suggestIcon" src="../../static/images/icon-{{ tip }}.svg" mode="aspectFit"></image>
     <text>{{ tipt }}</text>
     <text class="zs">{{ zs }}</text>

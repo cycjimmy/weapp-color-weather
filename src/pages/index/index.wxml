@@ -4,9 +4,15 @@
     <block wx:if="{{ dataReady }}">
 
       <!--bgCircle-->
-      <view class="bgCircle"
-            hover-class="bgCircleHover"
-            style="{{ circleStyleText }}"></view>
+      <block wx:if="{{ weatherTextColorStr }}">
+        <view class="bgCircle"
+              hover-class="bgCircleHover"
+              style="background: linear-gradient(to bottom, {{ weatherTextColorStr }});"></view>
+      </block>
+      <block wx:else>
+        <view class="bgCircle"
+              hover-class="bgCircleHover"></view>
+      </block>
 
       <!--currentCity-->
       <view class="currentCityWrapper">
@@ -27,8 +33,21 @@
         <view class="temperatureNum">{{ current.currentTemperature }}</view>
         <view class="temperatureRight">
           <view class="temperatureUnit">℃</view>
-          <view class="showDay">{{ current.day }}</view>
+
+          <block wx:if="{{ temperatureColor }}">
+            <view class="temperatureColor"
+                  style="background-color: {{ temperatureColor }};"></view>
+          </block>
+          <block wx:else>
+            <view class="temperatureColor"></view>
+          </block>
         </view>
+      </view>
+
+      <!--showDayWrapper-->
+      <view class="showDayWrapper">
+        <text class="showDay">{{ current.day }}</text>
+        <text class="showUpdatedTime">({{ updatedTime }}更新)</text>
       </view>
 
       <view class="kazariLine"></view>
@@ -36,7 +55,14 @@
       <!--pm25Wrapper-->
       <view class="pm25Wrapper">
         <image src="../../static/images/icon-pm25.svg" mode="aspectFit"></image>
-        <text>{{ current.pm25 }}</text>
+        <text>{{ current.pm25.text }}</text>
+
+        <block wx:if="{{ current.pm25.color }}">
+          <view style="background-color: {{ current.pm25.color }};"></view>
+        </block>
+        <block wx:else>
+          <view></view>
+        </block>
       </view>
 
       <view class="kazariLine"></view>

@@ -1,0 +1,49 @@
+@import '../../theme/variables';
+@import '../../theme/utilities';
+
+.currentCityWrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin: rpx(20) $space;
+  width: rpx(600);
+  height: rpx(98);
+}
+
+.currentCityHeader {
+  display: flex;
+  height: rpx(90);
+  align-items: center;
+
+  > image {
+    $iconH: rpx(40);
+    width: $iconH;
+    height: $iconH;
+    margin: 0 rpx(20);
+  }
+
+  > text {
+    display: block;
+
+    font-size: rpx(50);
+    font-weight: 700;
+  }
+}
+
+.currentCityKazari {
+  @extend %rel;
+  height: rpx(1);
+  width: rpx(500);
+  background-color: $fontColorLight;
+
+  .thick {
+    @extend %abs;
+    left: 0;
+    top: rpx(-2);
+    height: rpx(8);
+    width: rpx(40);
+
+    border-radius: rpx(4);
+    background-color: $fontColor;
+  }
+}

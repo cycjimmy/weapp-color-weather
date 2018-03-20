@@ -1,0 +1,33 @@
+@import '../../theme/variables';
+@import '../../theme/utilities';
+
+.weatherDescWrapper {
+  margin-left: $space;
+  align-self: flex-start;
+
+  > text {
+    display: block;
+    height: $fontS;
+    margin: rpx(10) 0;
+
+    line-height: $fontS;
+    font-size: $fontS;
+  }
+}
+
+.weatherPicWrapper {
+  $weatherPicH: rpx(40);
+  height: $weatherPicH;
+  display: flex;
+  margin: rpx(10) 0 rpx(20);
+
+  > image {
+    display: block;
+    height: $weatherPicH;
+    width: rpx(56);
+    opacity: .6;
+
+    margin-right: rpx(10);
+  }
+}
+

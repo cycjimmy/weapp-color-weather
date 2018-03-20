@@ -1,0 +1,24 @@
+@import '../../theme/variables';
+@import '../../theme/utilities';
+
+.bgCircle {
+  $bgCircleH: rpx(440);
+
+  @extend %abs;
+  z-index: 0;
+  top: 22%;
+  right: rpx(-200);
+  width: $bgCircleH;
+  height: $bgCircleH;
+  filter: blur(rpx(6));
+
+  border-radius: 50%;
+  background-color: #EFD13F;
+  opacity: .8;
+  transition: opacity 2s;
+}
+
+.bgCircleHover {
+  opacity: .5;
+}
+

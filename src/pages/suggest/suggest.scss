@@ -21,6 +21,10 @@
   }
 }
 
+.itemWrapperHover {
+  background-color: darken($bgc, .5%);
+}
+
 .suggestIcon {
   $iconH: rpx(60);
 

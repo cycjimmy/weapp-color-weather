@@ -1,7 +1,7 @@
 <view class="fullContainer aboutWrapper">
   <view class="header">
     <image src="../../static/images/logo_cyc.png" mode="aspectFit"></image>
-    <text>{{ version }}</text>
+    <text> {{ version }} </text>
   </view>
 
   <view class="textWrapper">
@@ -22,6 +22,6 @@
 
   <view class="copyright">
     <text>{{ license }} License</text>
-    <text>{{ copyright }}</text>
+    <text> {{ copyright }} </text>
   </view>
 </view>

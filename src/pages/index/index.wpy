@@ -9,8 +9,13 @@
   } from '../../shared/modal.funcs';
 
   import {
-    getColorStr
-  } from '../../shared/weather.funcs';
+    getWeatherTextColorStr,
+    getTemperatureColor
+  } from '../../shared/color.funcs';
+
+  import {
+    getUpdatedTimeStr
+  } from '../../shared/time.funcs';
 
   export default class extends wepy.page {
     config = {
@@ -20,7 +25,9 @@
     data = {
       isInitOver: false,
       dataReady: false,
-      circleStyleText: '',
+      weatherTextColorStr: '',
+      temperatureColor: '',
+      updatedTime: '00:00',
       current: {},
       forecast: []
     };
@@ -41,10 +48,9 @@
         .then(() => {
           this.current = this.$parent.globalData.current;
           this.forecast = this.$parent.globalData.forecast;
-          this.circleStyleText =
-            'background: linear-gradient(to bottom, ' +
-            getColorStr(this.current.weatherDesc) +
-            ')';
+          this.updatedTime = getUpdatedTimeStr(this.$parent.globalData.updated);
+          this.weatherTextColorStr = getWeatherTextColorStr(this.current.weatherDesc);
+          this.temperatureColor = getTemperatureColor(this.current.currentTemperature);
           this.dataReady = true;
           this.isInitOver = true;
 

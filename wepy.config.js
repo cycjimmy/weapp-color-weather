@@ -45,7 +45,22 @@ if (prod) {
   module.exports.plugins = {
     uglifyjs: {
       filter: /\.js$/,
-      config: {}
+      config: {
+        ie8: false,
+        ecma: 5,
+        output: {
+          comments: false,
+          beautify: false
+        },
+        compress: {
+          warnings: false,
+          drop_debugger: true,
+          drop_console: true,
+          collapse_vars: true,
+          reduce_vars: true
+        },
+        warnings: false
+      }
     },
     imagemin: {
       filter: /\.(jpg|png|jpeg)$/,
