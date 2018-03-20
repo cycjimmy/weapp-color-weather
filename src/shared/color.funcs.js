@@ -1,6 +1,6 @@
 const COLOR = {
   sunny: '#F4E192',
-  cloudy: '#CFE2E1',
+  cloudy: '#daffa9',
   overcast: '#A6B2CC',
   thunder: '#BD8AFF',
   rain: '#60BBEF',

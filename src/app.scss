@@ -10,6 +10,12 @@ page {
   background-color: $bgc;
 }
 
+page,
+view,
+text {
+  line-height: 1.4;
+}
+
 .fullContainer {
   position: relative;
   width: 100%;
