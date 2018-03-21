@@ -1,7 +1,7 @@
 <view class="fullContainer aboutWrapper">
   <view class="header">
     <image src="../../static/images/logo_cyc.png" mode="aspectFit"></image>
-    <text> {{ version }} </text>
+    <text>Ver {{ version }}</text>
   </view>
 
   <view class="textWrapper">

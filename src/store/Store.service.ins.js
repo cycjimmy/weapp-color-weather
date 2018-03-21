@@ -26,10 +26,13 @@ export default class {
   };
 
   setStore({current, forecast, suggestion, updated}) {
-    this.current = current;
-    this.forecast = forecast;
-    this.suggestion = suggestion;
-    this.updated = updated;
+    return new Promise(resolve => {
+      this.current = current;
+      this.forecast = forecast;
+      this.suggestion = suggestion;
+      this.updated = updated;
+      setTimeout(resolve, 0);
+    });
   };
 
   getStore() {
@@ -45,31 +48,29 @@ export default class {
                preRender = () => Promise.resolve()
              }) {
     let _now = new Date().getTime();
-    let _needUpdate = true;
     if (this._isNoNeedUpdate(_now, this.updated)) {
       return Promise.resolve();
     }
 
     return this._getDataFromLocalStorage()
-      .then(() => {
-        _needUpdate = !this._isNoNeedUpdate(_now, this.updated);
-        return Promise.resolve(_needUpdate);
-      }, (err) => {
-        console.log(err);
-        return Promise.resolve(_needUpdate);
-      })
-      .then((needUpdate) => needUpdate
-        ? preRender()
-          .then(() => Promise.all([
-            (() => {
-              wx.showLoading({title: '获取中'});
-            })(),
-            this._getDataFromSever(_now)
-          ]))
-        : Promise.resolve()
+      .then(
+        () => this._isNoNeedUpdate(_now, this.updated)
+          ? Promise.resolve('noNeedUpdate')
+          : Promise.resolve('needUpdate'),
+        () => Promise.resolve('noData')
       )
-      .finally(() => {
-        wx.hideLoading();
+      .then(stateStr => {
+        switch (stateStr) {
+          case 'noNeedUpdate':
+            return Promise.resolve();
+
+          case 'needUpdate':
+            return preRender()
+              .then(() => this._getDataFromSever());
+
+          case 'noData':
+            return this._getDataFromSever();
+        }
       });
   };
 
@@ -79,19 +80,15 @@ export default class {
 
   _getDataFromLocalStorage() {
     return getStorage()
-      .then(weatherData => new Promise(resolve => {
-        this.setStore(weatherData);
-        setTimeout(resolve, 10);
-      }));
+      .then(weatherData => this.setStore(weatherData));
   };
 
-  _getDataFromSever(now) {
+  _getDataFromSever() {
     return getWeather()
-      .then(weatherData => new Promise(resolve => {
-        weatherData.updated = now;
-        this.setStore(weatherData);
-        setStorage(weatherData);
-        setTimeout(resolve, 10);
-      }));
+      .then(weatherData => Promise.all([
+        this.setStore(weatherData),
+        setStorage(weatherData)
+      ]));
   };
 };
+

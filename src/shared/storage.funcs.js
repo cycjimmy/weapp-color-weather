@@ -16,3 +16,4 @@ export let setStorage = (data) => new Promise((resolve, reject) => {
     fail: err => reject(err)
   });
 });
+

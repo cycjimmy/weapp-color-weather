@@ -1,24 +1,4 @@
 <style lang="scss" src="about.scss"></style>
 <template lang="wxml" src="about.wxml"></template>
+<script lang="babel" src="about.js"></script>
 
-<script>
-  import wepy from 'wepy';
-
-  export default class extends wepy.page {
-    config = {
-      navigationBarTitleText: '关于色彩天气'
-    };
-
-    data = {
-      version: 'Ver 0.0.10',
-      repository: 'cycjimmy/weapp-color-weather',
-      license: 'MIT',
-      copyright: 'Copyright (c) 2018 cycjimmy'
-    };
-
-    methods = {};
-
-    onLoad() {
-    };
-  };
-</script>

@@ -10,6 +10,10 @@ import {
 
 const apiKey = 'vS58Ifa5GreEZzVLCLyzFQZK5GXDokqp';
 
+let BMap = new bmap.BMapWX({
+  ak: apiKey
+});
+
 export let setAQI = (sAQI) => {
   let nAQI = parseInt(sAQI, 10);
 
@@ -59,98 +63,100 @@ let reAuth = () => {
     }));
 };
 
-export let getWeather = () => {
-  let BMap = new bmap.BMapWX({
-    ak: apiKey
-  });
+export let getWeather = () => new Promise((resolve, reject) => {
+  wx.showLoading({title: '获取中'});
   // default resolve data
   let result = {
     current: {},
     forecast: [],
-    suggestion: {}
+    suggestion: {},
+    updated: 0
   };
 
-  return new Promise((resolve, reject) => {
-    let fail = (err) => {
-      reject(err);
-    };
-    let success = (data) => {
-      let originalData = data.originalData.results[0];
-      let currentWeather = originalData.weather_data[0];
-      let suggestion = originalData.index;
+  let fail = (err) => reject(err);
+  let success = (data) => {
+    let originalData = data.originalData.results[0];
+    let currentWeather = originalData.weather_data[0];
+    let suggestion = originalData.index;
 
-      // current
-      result.current.currentCity = originalData.currentCity;
-      result.current.currentTemperature = currentWeather.date.replace(/^.+实时：|℃.+$/g, '');
-      result.current.maxTemperature = currentWeather.temperature.replace(/\s.+$/g, '');
-      result.current.minTemperature = currentWeather.temperature.replace(/^.+\s|℃$/g, '');
-      result.current.day = currentWeather.date.replace(/\s.+$/g, '');
-      result.current.pm25 = setAQI(originalData.pm25);
-      result.current.dayPictureUrl = currentWeather.dayPictureUrl;
-      result.current.nightPictureUrl = currentWeather.nightPictureUrl;
-      result.current.weatherDesc = currentWeather.weather;
-      result.current.wind = currentWeather.wind;
+    // updated
+    result.updated = new Date().getTime();
 
-      // forecast
-      result.forecast = originalData.weather_data.slice(1, originalData.weather_data.length);
+    // current
+    result.current.currentCity = originalData.currentCity;
+    result.current.currentTemperature = currentWeather.date.replace(/^.+实时：|℃.+$/g, '');
+    result.current.maxTemperature = currentWeather.temperature.replace(/\s.+$/g, '');
+    result.current.minTemperature = currentWeather.temperature.replace(/^.+\s|℃$/g, '');
+    result.current.day = currentWeather.date.replace(/\s.+$/g, '');
+    result.current.pm25 = setAQI(originalData.pm25);
+    result.current.dayPictureUrl = currentWeather.dayPictureUrl;
+    result.current.nightPictureUrl = currentWeather.nightPictureUrl;
+    result.current.weatherDesc = currentWeather.weather;
+    result.current.wind = currentWeather.wind;
 
-      // suggestion
-      suggestion.forEach(suggestionObj => {
-        console.log(suggestionObj);
+    // forecast
+    result.forecast = originalData.weather_data.slice(1, originalData.weather_data.length);
 
-        switch (suggestionObj.tipt) {
-          case '穿衣指数':
-            result.suggestion.dress = {
-              tip: 'dress',
-              ...suggestionObj
-            };
-            break;
+    // suggestion
+    suggestion.forEach(suggestionObj => {
+      switch (suggestionObj.tipt) {
+        case '穿衣指数':
+          result.suggestion.dress = {
+            tip: 'dress',
+            ...suggestionObj
+          };
+          break;
 
-          case '紫外线强度指数':
-            result.suggestion.uv = {
-              tip: 'uv',
-              ...suggestionObj
-            };
-            break;
+        case '紫外线强度指数':
+          result.suggestion.uv = {
+            tip: 'uv',
+            ...suggestionObj
+          };
+          break;
 
-          case '感冒指数':
-            result.suggestion.cold = {
-              tip: 'cold',
-              ...suggestionObj
-            };
-            break;
+        case '感冒指数':
+          result.suggestion.cold = {
+            tip: 'cold',
+            ...suggestionObj
+          };
+          break;
 
-          case '运动指数':
-            result.suggestion.sport = {
-              tip: 'sport',
-              ...suggestionObj
-            };
-            break;
+        case '运动指数':
+          result.suggestion.sport = {
+            tip: 'sport',
+            ...suggestionObj
+          };
+          break;
 
-          case '洗车指数':
-            result.suggestion.carWash = {
-              tip: 'carWash',
-              ...suggestionObj
-            };
-            break;
-        }
-      });
-      console.log(data);
-      setTimeout(() => resolve(result), 0);
-    };
-
-    BMap.weather({
-      fail: fail,
-      success: success
+        case '洗车指数':
+          result.suggestion.carWash = {
+            tip: 'carWash',
+            ...suggestionObj
+          };
+          break;
+      }
     });
-  }).catch(err => {
-    console.error(err);
-    wx.hideLoading();
-    if (err.errMsg === 'getLocation:fail auth deny') {
-      return reAuth()
-        .then(() => Promise.reject(err));
-    }
-    return Promise.reject(err);
+    console.log(data);
+    setTimeout(() => resolve(result), 10);
+  };
+
+  BMap.weather({
+    fail: fail,
+    success: success
   });
-};
+})
+  .then(
+    data => Promise.resolve(data),
+    err => {
+      wx.hideLoading();
+      console.error(err);
+      if (err.errMsg === 'getLocation:fail auth deny') {
+        return reAuth()
+          .then(() => getWeather());
+      }
+      return Promise.reject(err);
+    })
+  .finally(() => {
+    wx.hideLoading();
+  });
 
