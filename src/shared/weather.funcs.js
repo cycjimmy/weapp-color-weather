@@ -92,21 +92,48 @@ export let getWeather = () => {
       result.current.wind = currentWeather.wind;
 
       // forecast
-      result.forecast = [
-        originalData.weather_data[1],
-        originalData.weather_data[2],
-        originalData.weather_data[3]
-      ];
+      result.forecast = originalData.weather_data.slice(1, originalData.weather_data.length);
 
       // suggestion
-      result.suggestion.dress = suggestion[0];
-      result.suggestion.uv = suggestion[4];
-      result.suggestion.cold = suggestion[2];
-      result.suggestion.sport = suggestion[3];
-      result.suggestion.carWash = suggestion[1];
+      suggestion.forEach(suggestionObj => {
+        console.log(suggestionObj);
 
-      ['dress', 'uv', 'cold', 'sport', 'carWash'].forEach(tip => {
-        result.suggestion[tip].tip = tip;
+        switch (suggestionObj.tipt) {
+          case '穿衣指数':
+            result.suggestion.dress = {
+              tip: 'dress',
+              ...suggestionObj
+            };
+            break;
+
+          case '紫外线强度指数':
+            result.suggestion.uv = {
+              tip: 'uv',
+              ...suggestionObj
+            };
+            break;
+
+          case '感冒指数':
+            result.suggestion.cold = {
+              tip: 'cold',
+              ...suggestionObj
+            };
+            break;
+
+          case '运动指数':
+            result.suggestion.sport = {
+              tip: 'sport',
+              ...suggestionObj
+            };
+            break;
+
+          case '洗车指数':
+            result.suggestion.carWash = {
+              tip: 'carWash',
+              ...suggestionObj
+            };
+            break;
+        }
       });
       console.log(data);
       setTimeout(() => resolve(result), 0);

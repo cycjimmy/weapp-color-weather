@@ -3,15 +3,7 @@
 <script>
   import wepy from 'wepy';
   import 'wepy-async-function';
-
-  import {
-    getWeather
-  } from './shared/weather.funcs';
-
-  import {
-    getStorage,
-    setStorage
-  } from './shared/storage.funcs';
+  import './polyfill/promise-finally.polyfill';
 
   export default class extends wepy.app {
     config = {
@@ -51,12 +43,7 @@
       }
     };
 
-    globalData = {
-      current: {},
-      forecast: [],
-      suggestion: {},
-      updated: 0
-    };
+    globalData = {};
 
     constructor() {
       super();
@@ -64,61 +51,6 @@
     };
 
     onLaunch() {
-    };
-
-    setGlobalWeather() {
-      const TIMEOUT = 60 * 60 * 1e3;  // 1hour
-      let _now = new Date().getTime();
-
-      let _promiseFinalTask = () => {
-        console.log('promiseFinalTask');
-        wx.hideLoading();
-      };
-
-      let _getWeatherFromData = weatherData => new Promise(resolve => {
-        this.globalData.current = weatherData.current;
-        this.globalData.forecast = weatherData.forecast;
-        this.globalData.suggestion = weatherData.suggestion;
-        this.globalData.updated = weatherData.updated;
-        setTimeout(resolve, 100);
-      })
-        .then(() => _promiseFinalTask())
-        .catch((err) => {
-          _promiseFinalTask();
-          return Promise.reject(err);
-        });
-
-      let _getWeatherFromSever = () => Promise.resolve()
-        .then(() => new Promise(resolve => {
-          wx.showLoading({title: '获取中'});
-          setTimeout(resolve, 100);
-        }))
-        .then(() => getWeather())
-        .then(weatherData => {
-          weatherData.updated = _now;
-          return setStorage(weatherData);
-        })
-        .then(weatherData => _getWeatherFromData(weatherData));
-
-      if (
-        this.globalData.updated &&
-        this.globalData.updated + TIMEOUT > _now) {
-        return Promise.resolve();
-      }
-
-      return Promise.resolve()
-        .then(() => getStorage())
-        .then((weatherData) => {
-          console.log(weatherData);
-          if (weatherData.updated + TIMEOUT < _now) {
-            return _getWeatherFromSever();
-          } else {
-            return _getWeatherFromData(weatherData);
-          }
-        }, (err) => {
-          console.log(err);
-          return _getWeatherFromSever();
-        });
     };
   };
 </script>

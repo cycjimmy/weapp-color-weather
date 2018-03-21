@@ -4,6 +4,8 @@
 <script>
   import wepy from 'wepy';
 
+  import StoreServiceIns from '../../../store/Store.service.ins';
+
   export default class extends wepy.page {
     config = {
       navigationBarTitleText: ''
@@ -19,14 +21,15 @@
     methods = {};
 
     onLoad(option) {
+      let _suggestionStore = new StoreServiceIns().getStore().suggestion[option.tip];
       wx.setNavigationBarTitle({
-        title: option.title
+        title: _suggestionStore.title
       });
 
-      this.iconUrl = '../../../static/images/icon-' + option.tip + '.svg';
-      this.title = option.title;
-      this.zs = option.zs;
-      this.des = option.des;
+      this.iconUrl = '../../../static/images/icon-' + _suggestionStore.tip + '.svg';
+      this.title = _suggestionStore.title;
+      this.zs = _suggestionStore.zs;
+      this.des = _suggestionStore.des;
 
       setTimeout(() => this.$apply(), 100);
     };

@@ -1,6 +1,6 @@
 {
   "name": "weapp-color-weather",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "weapp-color-weather",
   "main": "dist/app.js",
   "scripts": {

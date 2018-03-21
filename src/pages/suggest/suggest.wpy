@@ -8,6 +8,8 @@
     modalForGetWeatherFail
   } from '../../shared/modal.funcs';
 
+  import StoreServiceIns from '../../store/Store.service.ins';
+
   export default class extends wepy.page {
     config = {
       navigationBarTitleText: '天气小贴士'
@@ -23,39 +25,44 @@
       navigateTo(event) {
         let _tip = event.currentTarget.dataset.tip;
         console.log('tip: ' + _tip);
-
-        let _suggestion = this.suggestion[_tip];
-        if (_suggestion) {
-          this.$root.$navigate('suggestInner/suggestInner', {
-            tip: _tip,
-            title: _suggestion.tipt,
-            zs: _suggestion.zs,
-            des: _suggestion.des
-          });
-        }
+        this.$root.$navigate('suggestInner/suggestInner', {
+          tip: _tip
+        });
       },
       retry() {
         console.log('retry');
-        this._setGlobalWeather();
+        this._getWeather();
       }
     };
 
     onLoad() {
-      this._setGlobalWeather();
+      this._getWeather();
     };
 
-    _setGlobalWeather() {
-      return this.$parent.setGlobalWeather()
-        .then(() => {
-          this.suggestion = this.$parent.globalData.suggestion;
-          this.dataReady = true;
-          this.isInitOver = true;
-          setTimeout(() => this.$apply(), 100);
+    renderData() {
+      return new Promise(resolve => {
+        let _store = new StoreServiceIns().getStore();
+        this.suggestion = _store.suggestion;
+        this.dataReady = true;
+        this.isInitOver = true;
+
+        setTimeout(() => {
+          this.$apply();
+          resolve();
+        }, 100);
+      });
+    };
+
+    _getWeather() {
+      return new StoreServiceIns()
+        .updateData({
+          preRender: () => this.renderData()
         })
+        .then(() => this.renderData())
         .catch(() => {
           this.isInitOver = true;
           modalForGetWeatherFail()
-            .then(() => this._setGlobalWeather());
+            .then(() => this._getWeather());
         });
     };
   };

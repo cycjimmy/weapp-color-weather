@@ -17,6 +17,8 @@
     getUpdatedTimeStr
   } from '../../shared/time.funcs';
 
+  import StoreServiceIns from '../../store/Store.service.ins';
+
   export default class extends wepy.page {
     config = {
       navigationBarTitleText: '色彩天气'
@@ -35,31 +37,43 @@
     methods = {
       retry() {
         console.log('retry');
-        this._setGlobalWeather();
+        this._getWeather();
       }
     };
 
     onLoad() {
-      this._setGlobalWeather();
+      this._getWeather();
+      // console.log(new StoreServiceIns().getStore());
     };
 
-    _setGlobalWeather() {
-      return this.$parent.setGlobalWeather()
-        .then(() => {
-          this.current = this.$parent.globalData.current;
-          this.forecast = this.$parent.globalData.forecast;
-          this.updatedTime = getUpdatedTimeStr(this.$parent.globalData.updated);
-          this.weatherTextColorStr = getWeatherTextColorStr(this.current.weatherDesc);
-          this.temperatureColor = getTemperatureColor(this.current.currentTemperature);
-          this.dataReady = true;
-          this.isInitOver = true;
+    renderData() {
+      return new Promise(resolve => {
+        let _store = new StoreServiceIns().getStore();
+        this.current = _store.current;
+        this.forecast = _store.forecast;
+        this.updatedTime = getUpdatedTimeStr(_store.updated);
+        this.weatherTextColorStr = getWeatherTextColorStr(this.current.weatherDesc);
+        this.temperatureColor = getTemperatureColor(this.current.currentTemperature);
+        this.dataReady = true;
+        this.isInitOver = true;
 
-          setTimeout(() => this.$apply(), 100);
+        setTimeout(() => {
+          this.$apply();
+          resolve();
+        }, 100);
+      });
+    };
+
+    _getWeather() {
+      return new StoreServiceIns()
+        .updateData({
+          preRender: () => this.renderData()
         })
+        .then(() => this.renderData())
         .catch(() => {
           this.isInitOver = true;
           modalForGetWeatherFail()
-            .then(() => this._setGlobalWeather());
+            .then(() => this._getWeather());
         });
     };
   };
