@@ -20,7 +20,8 @@ export default class {
     this.forecast = [];
     this.suggestion = {};
     this.updated = 0;
-    this.TIMEOUT = 60 * 60 * 1e3;  // 1hour
+    this.TIMEOUT = 120 * 60 * 1e3;                   // 2hour
+    this.TIMEOUT_FOR_ALLOW_REFRESH = 60 * 1e3;  // 15min
 
     _instance(this);
   };
@@ -45,10 +46,20 @@ export default class {
   };
 
   updateData({
-               preRender = () => Promise.resolve()
+               preRender = () => Promise.resolve(),
+               isRefresh = false
              }) {
     let _now = new Date().getTime();
-    if (this._isNoNeedUpdate(_now, this.updated)) {
+
+    if (isRefresh && this._isNoNeedUpdate(_now, this.updated, isRefresh)) {
+      wx.showToast({
+        title: '数据已是最新',
+        icon: 'none'
+      });
+      return Promise.resolve();
+    }
+
+    if (!isRefresh && this._isNoNeedUpdate(_now, this.updated)) {
       return Promise.resolve();
     }
 
@@ -74,8 +85,10 @@ export default class {
       });
   };
 
-  _isNoNeedUpdate(now, updated) {
-    return updated + this.TIMEOUT > now
+  _isNoNeedUpdate(now, updated, isRefresh = false) {
+    return isRefresh
+      ? updated + this.TIMEOUT_FOR_ALLOW_REFRESH > now
+      : updated + this.TIMEOUT > now
   };
 
   _getDataFromLocalStorage() {

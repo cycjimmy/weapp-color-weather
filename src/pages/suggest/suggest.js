@@ -35,6 +35,17 @@ export default class extends wepy.page {
     this._getWeather();
   };
 
+  onPullDownRefresh() {
+    this._getWeather(true)
+      .finally(() => wx.stopPullDownRefresh());
+  };
+
+  onShareAppMessage() {
+    return {
+      title: '天气小贴士告诉你今天适合干什么'
+    }
+  };
+
   renderData() {
     return new Promise(resolve => {
       let _store = new StoreServiceIns().getStore();
@@ -49,10 +60,11 @@ export default class extends wepy.page {
     });
   };
 
-  _getWeather() {
+  _getWeather(isRefresh = false) {
     return new StoreServiceIns()
       .updateData({
-        preRender: () => this.renderData()
+        preRender: () => this.renderData(),
+        isRefresh
       })
       .then(() => this.renderData())
       .catch((err) => {

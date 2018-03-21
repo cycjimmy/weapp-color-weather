@@ -22,6 +22,6 @@
 
   <view class="copyright">
     <text>{{ license }} License</text>
-    <text> {{ copyright }} </text>
+    <text>Copyright (c) 2018 cycjimmy</text>
   </view>
 </view>

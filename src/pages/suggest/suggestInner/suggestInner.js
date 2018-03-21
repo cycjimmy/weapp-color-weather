@@ -8,7 +8,7 @@ export default class extends wepy.page {
   };
 
   data = {
-    iconUrl: '',
+    tip: '',
     title: '',
     zs: '',
     des: ''
@@ -17,17 +17,39 @@ export default class extends wepy.page {
   methods = {};
 
   onLoad(option) {
-    let _suggestionStore = new StoreServiceIns().getStore().suggestion[option.tip];
-    wx.setNavigationBarTitle({
-      title: _suggestionStore.title
+    this.renderData(option.tip);
+  };
+
+  onPullDownRefresh() {
+    new StoreServiceIns()
+      .updateData({})
+      .then(() => this.renderData(this.tip))
+      .finally(() => wx.stopPullDownRefresh());
+  };
+
+  onShareAppMessage() {
+    return {
+      title: '【今日' + this.title + ': ' + this.zs + '】' + this.des
+    }
+  };
+
+  renderData(tip) {
+    return new Promise(resolve => {
+      let _suggestionStore = new StoreServiceIns().getStore().suggestion[tip];
+      wx.setNavigationBarTitle({
+        title: _suggestionStore.tipt
+      });
+
+      this.tip = _suggestionStore.tip;
+      this.title = _suggestionStore.tipt;
+      this.zs = _suggestionStore.zs;
+      this.des = _suggestionStore.des;
+
+      setTimeout(() => {
+        this.$apply();
+        resolve();
+      }, 100);
     });
-
-    this.iconUrl = '../../../static/images/icon-' + _suggestionStore.tip + '.svg';
-    this.title = _suggestionStore.title;
-    this.zs = _suggestionStore.zs;
-    this.des = _suggestionStore.des;
-
-    setTimeout(() => this.$apply(), 100);
   };
 };
 

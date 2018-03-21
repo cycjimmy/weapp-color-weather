@@ -1,5 +1,7 @@
 <view class="fullContainer">
-  <image class="suggestIcon" src="{{ iconUrl }}" mode="aspectFit"></image>
+  <block wx:if="{{ tip }}">
+    <image class="suggestIcon" src="../../../static/images/icon-{{ tip }}.svg" mode="aspectFit"></image>
+  </block>
   <view class="zs">{{ zs }}</view>
   <view class="des">{{ des }}</view>
 </view>

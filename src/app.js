@@ -11,10 +11,14 @@ export default class extends wepy.app {
       'pages/suggest/suggestInner/suggestInner'
     ],
     window: {
-      backgroundTextStyle: 'light',
+      backgroundTextStyle: 'dark',
+      backgroundColor: '#e2e2e2',
+      backgroundColorTop: '#f2f2f2',
+      backgroundColorBottom: '#f2f2f2',
       navigationBarBackgroundColor: '#f2f2f2',
-      navigationBarTitleText: 'Color Weather',
-      navigationBarTextStyle: 'black'
+      navigationBarTitleText: '色彩天气',
+      navigationBarTextStyle: 'black',
+      enablePullDownRefresh: true
     },
     tabBar: {
       color: '#aab8b8',
