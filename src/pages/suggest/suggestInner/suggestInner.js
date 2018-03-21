@@ -22,7 +22,9 @@ export default class extends wepy.page {
 
   onPullDownRefresh() {
     new StoreServiceIns()
-      .updateData({})
+      .updateData({
+        isRefresh: true
+      })
       .then(() => this.renderData(this.tip))
       .finally(() => wx.stopPullDownRefresh());
   };
