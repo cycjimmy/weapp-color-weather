@@ -21,9 +21,11 @@
 }
 
 .des {
+  width: rpx(750 - 40 * 2);
   padding: $space;
   margin-top: $space;
 
   font-size: $fontS;
   background-color: lighten($bgc, 2%);
 }
+

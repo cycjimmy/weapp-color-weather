@@ -1,12 +1,12 @@
 const COLOR = {
   sunny: '#F4E192',
-  cloudy: '#daffa9',
-  overcast: '#A6B2CC',
-  thunder: '#BD8AFF',
-  rain: '#60BBEF',
-  sandstorm: '#99825F',
-  haze: '#9DA5B2',
-  fog: '#C7D2D3',
+  cloudy: '#c0eab2',
+  overcast: '#c5d2ea',
+  thunder: '#c49fff',
+  rain: '#7acff4',
+  sandstorm: '#bc9e77',
+  haze: '#aeb2b7',
+  fog: '#d5dde0',
   snow: '#CEEAED',
   AQI_L1: '#88E288',
   AQI_L2: '#E6EF65',
@@ -14,10 +14,10 @@ const COLOR = {
   AQI_L4: '#FFB294',
   AQI_L5: '#CE8699',
   AQI_L6: '#AF5AA3',
-  tempMinus50: '#455aff',
-  temp10: '#d7ffcc',
-  temp11: '#f8ffb0',
-  temp60: '#ff7438'
+  tempMinus40: '#4a61d4',
+  temp10: '#9ddfac',
+  temp11: '#c2db65',
+  temp50: '#f07a35'
 };
 
 export let getAQILevelColorStr = (nLevel) => COLOR['AQI_L' + nLevel];
@@ -138,7 +138,7 @@ export let getTemperatureColor = (sTemperature) => {
   let _num = parseInt(sTemperature, 10);
   let _color = '';
   let _getLowTemperatureColor = (num) => _getColorOnGradient({
-    startColor: COLOR.tempMinus50,
+    startColor: COLOR.tempMinus40,
     endColor: COLOR.temp10,
     start: -40,
     end: 10,
@@ -146,7 +146,7 @@ export let getTemperatureColor = (sTemperature) => {
   });
   let _getHighTemperatureColor = (num) => _getColorOnGradient({
     startColor: COLOR.temp11,
-    endColor: COLOR.temp60,
+    endColor: COLOR.temp50,
     start: 11,
     end: 50,
     now: num

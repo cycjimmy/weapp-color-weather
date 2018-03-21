@@ -10,7 +10,7 @@
     };
 
     data = {
-      version: 'Ver 0.0.9',
+      version: 'Ver 0.0.10',
       repository: 'cycjimmy/weapp-color-weather',
       license: 'MIT',
       copyright: 'Copyright (c) 2018 cycjimmy'
