@@ -11,7 +11,11 @@
 </template>
 
 
-<view class="fullContainer">
+<view class="fullContainer"
+      @touchstart="touchStart"
+      @touchmove="touchMove"
+      @touchend="touchEnd"
+      @touchcancel="touchCancel">
   <block wx:if="{{ isInitOver }}">
     <!-- dataReady true -->
     <block wx:if="{{ dataReady }}">

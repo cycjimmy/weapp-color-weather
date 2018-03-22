@@ -6,6 +6,11 @@ import {
 
 import StoreServiceIns from '../../store/Store.service.ins';
 
+import {
+  infoListTouchEvent,
+  TOUCH_EVENTS
+} from '../../shared/touchEvent';
+
 export default class extends wepy.page {
   config = {
     navigationBarTitleText: '天气小贴士'
@@ -28,11 +33,37 @@ export default class extends wepy.page {
     retry() {
       console.log('retry');
       this._getWeather();
-    }
+    },
+    ...TOUCH_EVENTS
   };
 
   onLoad() {
     this._getWeather();
+  };
+
+  onShow() {
+    this.infoListTouchEvent = infoListTouchEvent;
+    this.infoListTouchEvent.bind({
+      swipe: e => {
+        console.log('swipe ' + e.direction);
+
+        if (e.direction === 'Left') {
+          wx.switchTab({
+            url: '/pages/about/about'
+          });
+        }
+
+        if (e.direction === 'Right') {
+          wx.switchTab({
+            url: '/pages/index/index'
+          });
+        }
+      }
+    });
+  };
+
+  onHide() {
+    this.infoListTouchEvent = null;
   };
 
   onPullDownRefresh() {

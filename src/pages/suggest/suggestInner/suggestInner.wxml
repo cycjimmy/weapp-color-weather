@@ -1,4 +1,8 @@
-<view class="fullContainer">
+<view class="fullContainer"
+      @touchstart="touchStart"
+      @touchmove="touchMove"
+      @touchend="touchEnd"
+      @touchcancel="touchCancel">
   <block wx:if="{{ tip }}">
     <image class="suggestIcon" src="../../../static/images/icon-{{ tip }}.svg" mode="aspectFit"></image>
   </block>

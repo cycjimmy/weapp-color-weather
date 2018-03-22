@@ -1,4 +1,8 @@
-<view class="fullContainer aboutWrapper">
+<view class="fullContainer aboutWrapper"
+      @touchstart="touchStart"
+      @touchmove="touchMove"
+      @touchend="touchEnd"
+      @touchcancel="touchCancel">
   <view class="header">
     <image src="../../static/images/logo_cyc.png" mode="aspectFit"></image>
     <text>Ver {{ version }}</text>

@@ -2,6 +2,11 @@ import wepy from 'wepy';
 
 import StoreServiceIns from '../../../store/Store.service.ins';
 
+import {
+  infoListTouchEvent,
+  TOUCH_EVENTS
+} from '../../../shared/touchEvent';
+
 export default class extends wepy.page {
   config = {
     navigationBarTitleText: ''
@@ -14,10 +19,31 @@ export default class extends wepy.page {
     des: ''
   };
 
-  methods = {};
+  methods = {
+    ...TOUCH_EVENTS
+  };
 
   onLoad(option) {
     this.renderData(option.tip);
+  };
+
+  onShow() {
+    this.infoListTouchEvent = infoListTouchEvent;
+    this.infoListTouchEvent.bind({
+      swipe: e => {
+        console.log('swipe ' + e.direction);
+
+        if (e.direction === 'Right') {
+          wx.navigateBack({
+            delta: 1
+          });
+        }
+      }
+    });
+  };
+
+  onHide() {
+    this.infoListTouchEvent = null;
   };
 
   onPullDownRefresh() {
