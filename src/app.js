@@ -2,6 +2,10 @@ import wepy from 'wepy';
 import 'wepy-async-function';
 import './polyfill/promise-finally.polyfill';
 
+import {
+  modalForUpdateManager
+} from './shared/modal.funcs';
+
 export default class extends wepy.app {
   config = {
     pages: [
@@ -52,6 +56,23 @@ export default class extends wepy.app {
   };
 
   onLaunch() {
+    // UpdateManager
+    if (wx.canIUse('getUpdateManager')) {
+      this.updateManager = wx.getUpdateManager();
+
+      // 请求完新版本信息的回调
+      this.updateManager
+        .onCheckForUpdate((res) => console.log('onCheckForUpdate: ' + res.hasUpdate));
+
+      // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+      this.updateManager
+        .onUpdateReady(() => modalForUpdateManager()
+          .then(() => this.updateManager.applyUpdate()));
+
+      // 新的版本下载失败
+      this.updateManager
+        .onUpdateFailed(() => console.log('Update Download Failed!'));
+    }
   };
 };
 

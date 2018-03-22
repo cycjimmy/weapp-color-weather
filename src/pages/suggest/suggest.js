@@ -11,6 +11,10 @@ import {
   TOUCH_EVENTS
 } from '../../shared/touchEvent';
 
+import {
+  vibrateShort
+} from '../../shared/vibrate.funcs';
+
 export default class extends wepy.page {
   config = {
     navigationBarTitleText: '天气小贴士'
@@ -26,6 +30,7 @@ export default class extends wepy.page {
     navigateTo(event) {
       let _tip = event.currentTarget.dataset.tip;
       console.log('tip: ' + _tip);
+      vibrateShort();
       this.$root.$navigate('suggestInner/suggestInner', {
         tip: _tip
       });
@@ -42,6 +47,8 @@ export default class extends wepy.page {
   };
 
   onShow() {
+    vibrateShort();
+
     this.infoListTouchEvent = infoListTouchEvent;
     this.infoListTouchEvent.bind({
       swipe: e => {

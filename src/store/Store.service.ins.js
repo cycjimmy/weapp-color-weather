@@ -5,6 +5,9 @@ import {
   getStorage,
   setStorage
 } from '../shared/storage.funcs';
+import {
+  vibrateLong
+} from '../shared/vibrate.funcs';
 
 let
   _instance = new CreateInstance()
@@ -56,6 +59,7 @@ export default class {
         title: '数据已是最新',
         icon: 'none'
       });
+      vibrateLong();
       return Promise.resolve();
     }
 
@@ -99,6 +103,7 @@ export default class {
   _getDataFromSever() {
     return getWeather()
       .then(weatherData => Promise.all([
+        (() => vibrateLong())(),
         this.setStore(weatherData),
         setStorage(weatherData)
       ]));

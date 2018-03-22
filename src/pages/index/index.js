@@ -20,6 +20,10 @@ import {
   TOUCH_EVENTS
 } from '../../shared/touchEvent';
 
+import {
+  vibrateShort
+} from '../../shared/vibrate.funcs';
+
 export default class extends wepy.page {
   config = {
     navigationBarTitleText: '色彩天气'
@@ -40,6 +44,9 @@ export default class extends wepy.page {
       console.log('retry');
       this._getWeather();
     },
+    vibrate() {
+      vibrateShort();
+    },
     ...TOUCH_EVENTS
   };
 
@@ -48,6 +55,8 @@ export default class extends wepy.page {
   };
 
   onShow() {
+    vibrateShort();
+
     this.infoListTouchEvent = infoListTouchEvent;
     this.infoListTouchEvent.bind({
       swipe: e => {

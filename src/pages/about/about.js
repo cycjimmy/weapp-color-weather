@@ -7,13 +7,15 @@ import {
   TOUCH_EVENTS
 } from '../../shared/touchEvent';
 
+import {vibrateShort} from '../../shared/vibrate.funcs';
+
 export default class extends wepy.page {
   config = {
     navigationBarTitleText: '关于色彩天气'
   };
 
   data = {
-    version: '0.0.14',
+    version: '0.0.15',
     repository: 'cycjimmy/weapp-color-weather',
     license: 'MIT'
   };
@@ -28,6 +30,8 @@ export default class extends wepy.page {
   };
 
   onShow() {
+    vibrateShort();
+
     this.infoListTouchEvent = infoListTouchEvent;
     this.infoListTouchEvent.bind({
       swipe: e => {

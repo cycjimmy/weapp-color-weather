@@ -15,7 +15,8 @@
       </block>
       <block wx:else>
         <view class="bgCircle"
-              hover-class="bgCircleHover"></view>
+              hover-class="bgCircleHover"
+              @tap="vibrate"></view>
       </block>
 
       <!--currentCity-->

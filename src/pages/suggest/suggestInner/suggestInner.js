@@ -6,6 +6,7 @@ import {
   infoListTouchEvent,
   TOUCH_EVENTS
 } from '../../../shared/touchEvent';
+import {vibrateShort} from '../../../shared/vibrate.funcs';
 
 export default class extends wepy.page {
   config = {
@@ -28,6 +29,8 @@ export default class extends wepy.page {
   };
 
   onShow() {
+    vibrateShort();
+
     this.infoListTouchEvent = infoListTouchEvent;
     this.infoListTouchEvent.bind({
       swipe: e => {
