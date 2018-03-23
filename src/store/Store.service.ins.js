@@ -25,7 +25,7 @@ export default class {
     this.suggestion = {};
     this.updated = 0;
     this.TIMEOUT = 120 * 60 * 1e3;                   // 2hour
-    this.TIMEOUT_FOR_ALLOW_REFRESH = 60 * 1e3;  // 15min
+    this.TIMEOUT_FOR_ALLOW_REFRESH = 15 * 60 * 1e3;  // 15min
 
     _instance(this);
   };
@@ -70,7 +70,7 @@ export default class {
 
     return this._getDataFromLocalStorage()
       .then(
-        () => this._isNoNeedUpdate(_now, this.updated)
+        () => this._isNoNeedUpdate(_now, this.updated, isRefresh)
           ? Promise.resolve('noNeedUpdate')
           : Promise.resolve('needUpdate'),
         () => Promise.resolve('noData')
