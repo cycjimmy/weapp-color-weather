@@ -1,10 +1,11 @@
 {
   "name": "weapp-color-weather",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "weapp-color-weather",
   "main": "dist/app.js",
   "scripts": {
-    "dev": "wepy build --watch",
+    "dev": "npm run clean:dist && wepy build --watch",
+    "dev:noClean": "wepy build --watch",
     "build": "npm run clean:dist && cross-env NODE_ENV=production wepy build --no-cache",
     "clean:dist": "gulp clean:dist",
     "test": "echo \"Error: no test specified\" && exit 1"

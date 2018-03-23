@@ -1,7 +1,8 @@
 import bmap from '../libs/bmap-wx';
 
 import {
-  modalForReAuth
+  modalForReAuth,
+  modalForOverseasUser
 } from './modal.funcs';
 
 import {
@@ -63,8 +64,37 @@ let reAuth = () => {
     }));
 };
 
-export let getWeather = () => new Promise((resolve, reject) => {
-  wx.showLoading({title: '获取中'});
+
+let _checkIsOverseasUser = () => new Promise((resolve, reject) => {
+  let _fail = err => reject(err);
+  let _regeocodingSuccess = data => {
+    if (
+      data.originalData &&
+      data.originalData.result &&
+      data.originalData.result.addressComponent &&
+      data.originalData.result.addressComponent.country
+    ) {
+      let _country = data.originalData.result.addressComponent.country;
+      console.log(_country);
+      if (_country === '中国') {
+        resolve();
+      } else {
+        wx.hideLoading();
+        modalForOverseasUser()
+          .finally(() => reject(new Error('overseasUser')));
+      }
+    } else {
+      reject(new Error('Regeocoding data err'));
+    }
+  };
+
+  BMap.regeocoding({
+    fail: _fail,
+    success: _regeocodingSuccess
+  });
+});
+
+let _getWeather = () => new Promise((resolve, reject) => {
   // default resolve data
   let result = {
     current: {},
@@ -73,8 +103,9 @@ export let getWeather = () => new Promise((resolve, reject) => {
     updated: 0
   };
 
-  let fail = (err) => reject(err);
-  let success = (data) => {
+  let _fail = (err) => reject(err);
+
+  let _getWeatherSuccess = (data) => {
     let originalData = data.originalData.results[0];
     let currentWeather = originalData.weather_data[0];
     let suggestion = originalData.index;
@@ -141,10 +172,18 @@ export let getWeather = () => new Promise((resolve, reject) => {
   };
 
   BMap.weather({
-    fail: fail,
-    success: success
+    fail: _fail,
+    success: _getWeatherSuccess
   });
-})
+});
+
+
+export let getWeather = () => Promise.resolve()
+  .then(() => {
+    wx.showLoading({title: '获取中'});
+    return _checkIsOverseasUser();
+  })
+  .then(() => _getWeather())
   .then(
     data => Promise.resolve(data),
     err => {

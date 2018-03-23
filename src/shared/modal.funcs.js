@@ -4,7 +4,7 @@ let _modalPromise = ({
                        title,
                        content,
                        cancelColor = '#999',
-                       confirmText
+                       confirmText = '确定'
                      }) => new Promise((resolve, reject) => {
   vibrateShort();
 
@@ -35,6 +35,11 @@ export let modalForReAuth = () => _modalPromise({
   title: '程序需要您授权位置服务以继续',
   content: '是否进入授权页面',
   confirmText: '进入授权'
+});
+
+export let modalForOverseasUser = () => _modalPromise({
+  title: '无法提供服务',
+  content: '对不起，暂无法提供海外服务'
 });
 
 export let modalForUpdateManager = () => _modalPromise({

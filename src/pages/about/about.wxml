@@ -5,7 +5,6 @@
       @touchcancel="touchCancel">
   <view class="header">
     <image src="../../static/images/logo_cyc.png" mode="aspectFit"></image>
-    <text>Ver {{ version }}</text>
   </view>
 
   <view class="textWrapper">
@@ -14,7 +13,7 @@
 
     <view class="line"></view>
 
-    <view>源代码目前已开源({{ license }}协议)</view>
+    <view>代码目前已开源({{ license }}协议)</view>
     <view>github: {{ repository }}</view>
 
     <view class="line"></view>
@@ -25,7 +24,7 @@
   </view>
 
   <view class="copyright">
-    <text>{{ license }} License</text>
+    <text>{{ license }} License · Ver {{ version }}</text>
     <text>Copyright (c) 2018 cycjimmy</text>
   </view>
 </view>

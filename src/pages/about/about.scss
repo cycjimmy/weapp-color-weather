@@ -22,18 +22,11 @@
     height: $imgH;
     margin: rpx(10);
   }
-
-  > text {
-    display: block;
-
-    font-size: rpx(32);
-    font-style:italic;
-  }
 }
 
 .textWrapper {
   @extend %columnFlexCenter;
-  margin: 0 rpx(30);
+  margin: 0 rpx(30) $space;
 
   font-size: $fontS;
 }
