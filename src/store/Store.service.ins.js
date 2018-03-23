@@ -6,7 +6,8 @@ import {
   setStorage
 } from '../shared/storage.funcs';
 import {
-  vibrateLong
+  vibrateLong,
+  vibrateShort
 } from '../shared/vibrate.funcs';
 
 let
@@ -59,7 +60,7 @@ export default class {
         title: '数据已是最新',
         icon: 'none'
       });
-      vibrateLong();
+      vibrateShort();
       return Promise.resolve();
     }
 
