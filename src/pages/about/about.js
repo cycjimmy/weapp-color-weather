@@ -15,7 +15,7 @@ export default class extends wepy.page {
   };
 
   data = {
-    version: '0.0.18',
+    version: '0.0.19',
     repository: 'cycjimmy/weapp-color-weather',
     license: 'MIT'
   };
